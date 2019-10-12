@@ -1,5 +1,7 @@
 const socket = io()
-const md = markdownit()
+const md = markdownit({
+  linkify: true
+})
 
 socket.on('message', data => {
   displayMessage('other', data)

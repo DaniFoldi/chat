@@ -37,6 +37,11 @@ html {
   padding: 8px;
 }
 
+.message a {
+  color: inherit;
+  font-weight: bold;
+}
+
 .message {
   margin: 4px;
   border-radius: 5px;
