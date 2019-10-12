@@ -38,7 +38,7 @@ html {
 }
 
 .message {
-  margin: 12px;
+  margin: 4px;
   border-radius: 5px;
   padding: 8px;
 }
@@ -52,6 +52,11 @@ html {
   text-align: right;
   background: #B9BBBE;
   color: #18191C;
+}
+
+.message-special {
+  text-align: center;
+  font-style: italic;
 }
 
 #send {

@@ -9,9 +9,9 @@ const socket = io(server)
 app.use(express.static('public'))
 
 socket.on('connection', socket => {
-  console.log('connected')
+  socket.broadcast.emit('special', 'A user connected')
   socket.on('disconnect', () => {
-    console.log('disconnected')
+    socket.broadcast.emit('special', 'A user disconnected')
   })
   socket.on('message', data => {
     socket.broadcast.emit('message', data)

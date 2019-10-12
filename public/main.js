@@ -1,22 +1,25 @@
 const socket = io()
+const md = markdownit()
 
 socket.on('message', data => {
-  createMessage('other', data)
+  displayMessage('other', data)
 })
 
-function createMessage(direction, data) {
-  const message = document.createElement('p')
+socket.on('special', data => {
+  displayMessage('special', data)
+})
+
+function displayMessage(type, data) {
+  const message = document.createElement('div')
   message.classList.add('message')
-  message.classList.add('message-' + direction)
-  const md = window.markdownit()
-  const result = md.render(data)
-  message.innerHTML = result
+  message.classList.add('message-' + type)
+  message.innerHTML = md.render(data)
   document.getElementById('messages').appendChild(message)
 }
 
 function sendMessage() {
   socket.emit('message', document.getElementById('input').value)
-  createMessage('my', document.getElementById('input').value)
+  displayMessage('my', document.getElementById('input').value)
   document.getElementById('input').value = ''
 }
 
@@ -25,7 +28,6 @@ document.getElementById('send').addEventListener('click', () => {
 })
 
 document.getElementById('input').addEventListener('keydown', event => {
-  console.log(event)
   if (!event.shiftKey && event.key === 'Enter') {
     sendMessage()
     event.preventDefault()
