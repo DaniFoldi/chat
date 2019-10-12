@@ -13,6 +13,9 @@ socket.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log('disconnected')
   })
+  socket.on('message', data => {
+    socket.broadcast.emit('message', data)
+  })
 })
 
 server.listen(3000, () => {
