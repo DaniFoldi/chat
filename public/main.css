@@ -1,0 +1,61 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, sans-serif;
+  font-weight: lighter;
+  background: #DADADA;
+}
+
+#main {
+  display: grid;
+  height: 100vh;
+  grid-template: '. messages messages .' 1fr '. input send .' 50px / 1fr minmax(400px, 50vw) 50px 1fr;
+  place-items: fill fill;
+}
+
+#messages {
+  grid-area: messages;
+  overflow-y: scroll;
+}
+
+#messages::-webkit-scrollbar {
+  display: none;
+}
+
+#input {
+  grid-area: input;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  resize: none;
+  margin: 4px 0;
+}
+
+#input:focus {
+  outline: none;
+}
+
+.message {
+  margin: 12px;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.message-my {
+  background: #C43884;
+  color: white;
+}
+
+.message-other {
+  text-align: right;
+  background: #B9BBBE;
+  color: #18191C;
+}
+
+#send {
+  grid-area: send;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  margin: 4px 0;
+  background: #EAEAEA;
+}
