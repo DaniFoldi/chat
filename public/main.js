@@ -12,8 +12,20 @@ function createMessage(direction, data) {
   document.getElementById('messages').appendChild(message)
 }
 
-document.getElementById('send').addEventListener('click', () => {
+function sendMessage() {
   socket.emit('message', document.getElementById('input').value)
   createMessage('my', document.getElementById('input').value)
   document.getElementById('input').value = ''
+}
+
+document.getElementById('send').addEventListener('click', () => {
+  sendMessage()
+})
+
+document.getElementById('input').addEventListener('keydown', event => {
+  console.log(event)
+  if (!event.shiftKey && event.key === 'Enter') {
+    sendMessage()
+    event.preventDefault()
+  }
 })
