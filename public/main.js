@@ -9,7 +9,7 @@ function createMessage(direction, data) {
   message.classList.add('message')
   message.classList.add('message-' + direction)
   const md = window.markdownit()
-var result = md.render(data);
+  const result = md.render(data)
   message.innerHTML = result
   document.getElementById('messages').appendChild(message)
 }
