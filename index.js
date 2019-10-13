@@ -7,7 +7,7 @@ const server = http.createServer(app)
 const socket = io(server)
 
 const port = process.env.PORT || 3000
-const prefix = process.env.PREFIX || '/'
+const prefix = process.env.PATH_PREFIX || '/'
 
 app.use(prefix, express.static('public'))
 
