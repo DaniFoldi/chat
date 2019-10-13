@@ -1,7 +1,7 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "description": "",
+  "description": "A great open-source chat application",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -15,7 +15,9 @@
     "chat",
     "socket",
     "real-time",
-    "communcation"
+    "communcation",
+    "message",
+    "user"
   ],
   "author": "DaniFoldi",
   "license": "MIT",
@@ -25,6 +27,7 @@
   "homepage": "https://github.com/DaniFoldi/chat#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "passport": "^0.4.0",
     "socket.io": "^2.3.0"
   }
 }
