@@ -42,6 +42,10 @@ html {
   font-weight: bold;
 }
 
+.message p {
+  margin: 2px;
+}
+
 .message {
   margin: 4px;
   border-radius: 5px;
@@ -62,6 +66,7 @@ html {
 .message-special {
   text-align: center;
   font-style: italic;
+  color: rgba(0,0,0,.6);
 }
 
 #send {
@@ -69,5 +74,9 @@ html {
   border: none;
   border-radius: 0 5px 5px 0;
   margin: 4px 0;
+  background: #CDCDCD;
+}
+
+#send:disabled {
   background: #EAEAEA;
 }

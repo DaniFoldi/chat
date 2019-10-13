@@ -24,6 +24,7 @@ function sendMessage() {
   displayMessage('my', document.getElementById('input').value)
   document.getElementById('input').value = ''
   document.getElementById('input').rows = 1
+  document.getElementById('send').disabled = true
 }
 
 document.getElementById('send').addEventListener('click', () => {
@@ -41,4 +42,9 @@ document.getElementById('input').rows = 1
 document.getElementById('input').addEventListener('input', event => {
   const lineCount = Math.min(3, event.target.value.split('\n').length)
   event.target.rows = lineCount
+  if (document.getElementById('input').value.trim().length === 0) {
+    document.getElementById('send').disabled = true
+  } else {
+    document.getElementById('send').disabled = false
+  }
 })
