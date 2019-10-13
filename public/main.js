@@ -23,6 +23,7 @@ function sendMessage() {
   socket.emit('message', document.getElementById('input').value)
   displayMessage('my', document.getElementById('input').value)
   document.getElementById('input').value = ''
+  document.getElementById('input').rows = 1
 }
 
 document.getElementById('send').addEventListener('click', () => {
@@ -34,4 +35,10 @@ document.getElementById('input').addEventListener('keydown', event => {
     sendMessage()
     event.preventDefault()
   }
+})
+
+document.getElementById('input').rows = 1
+document.getElementById('input').addEventListener('input', event => {
+  const lineCount = Math.min(3, event.target.value.split('\n').length)
+  event.target.rows = lineCount
 })
