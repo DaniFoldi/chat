@@ -7,8 +7,9 @@ const server = http.createServer(app)
 const socket = io(server)
 
 const port = process.env.PORT || 3000
+const prefix = process.env.PREFIX || '/'
 
-app.use(express.static('public'))
+app.use(prefix, express.static('public'))
 
 socket.on('connection', socket => {
   socket.broadcast.emit('special', 'A user connected')
