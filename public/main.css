@@ -11,7 +11,7 @@ html {
   display: grid;
   height: 100vh;
   grid-template: '. messages messages .' 1fr '. input send .' auto / 1fr minmax(400px, 50vw) 50px 1fr;
-  place-items: fill fill;
+  place-items: stretch stretch;
 }
 
 #messages {
