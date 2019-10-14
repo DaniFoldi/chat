@@ -44,6 +44,7 @@ html {
 
 .message p {
   margin: 2px;
+  word-wrap: break-word;
 }
 
 .message {
@@ -67,6 +68,12 @@ html {
   text-align: center;
   font-style: italic;
   color: rgba(0,0,0,.6);
+}
+
+.message-emoji {
+  color: black;
+  background: transparent;
+  font-size: 30px;
 }
 
 #send {
