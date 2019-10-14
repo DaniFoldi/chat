@@ -15,6 +15,18 @@ app.use(express.static('public'))
 })
 
 socket.on('connection', async socket => {
+  switch (socket.conn.server.clientsCount - 1) {
+    case 0:
+      socket.emit('special', 'No users currently connected')
+      break
+    case 1:
+      socket.emit('special', '1 user currently connected')
+      break
+    default:
+      socket.emit('special', `${socket.conn.server.clientsCount - 1} users currently connected`)
+      break
+  }
+
   socket.broadcast.emit('special', 'A user connected')
   socket.on('disconnect', async () => {
     socket.broadcast.emit('special', 'A user disconnected')
