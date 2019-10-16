@@ -31,6 +31,19 @@ html {
   margin: 4px 0;
   font-size: 16px;
   padding: 8px;
+  height: 18px;
+}
+
+#input.line-1 {
+  height: 18px;
+}
+
+#input.line-2 {
+  height: 36px;
+}
+
+#input.line-3 {
+  height: 54px;
 }
 
 #input:focus {

@@ -57,10 +57,13 @@ document.getElementById('input').addEventListener('keydown', event => {
   }
 })
 
-document.getElementById('input').rows = 1
-document.getElementById('input').addEventListener('input', event => {
-  const lineCount = Math.min(3, event.target.value.split('\n').length)
-  event.target.rows = lineCount
+document.getElementById('input').addEventListener('input', () => {
+  document.getElementById('input').classList.forEach(el => {
+    if (el.indexOf('line-') === 0)
+      document.getElementById('input').classList.remove(el)
+  })
+  let lineCount = Math.min(Math.ceil((document.getElementById('input').scrollHeight - 16) / 18), 3)
+  document.getElementById('input').classList.add(`line-${lineCount}`)
   if (document.getElementById('input').value.trim().length === 0) {
     document.getElementById('send').disabled = true
   } else {
