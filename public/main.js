@@ -42,8 +42,12 @@ function sendMessage() {
   socket.emit('message', message)
   displayMessage('my', message)
   document.getElementById('input').value = ''
-  document.getElementById('input').rows = 1
   document.getElementById('send').disabled = true
+  document.getElementById('input').classList.forEach(el => {
+    if (el.indexOf('line-') === 0)
+      document.getElementById('input').classList.remove(el)
+  })
+  document.getElementById('input').classList.add('line-1')
 }
 
 document.getElementById('send').addEventListener('click', () => {
@@ -52,8 +56,8 @@ document.getElementById('send').addEventListener('click', () => {
 
 document.getElementById('input').addEventListener('keydown', event => {
   if (!event.shiftKey && event.key === 'Enter') {
-    sendMessage()
     event.preventDefault()
+    sendMessage()
   }
 })
 
