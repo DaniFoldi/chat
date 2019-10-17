@@ -10,9 +10,6 @@ const port = process.env.PORT || 3000
 
 app.use(express.static('public'))
 
-    })
-  })(req, res, next)
-})
 
 socket.on('connection', async socket => {
   switch (socket.conn.server.clientsCount - 1) {
