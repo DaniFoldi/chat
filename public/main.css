@@ -60,19 +60,28 @@ html {
   word-wrap: break-word;
 }
 
+.message blockquote {
+  margin: -2px 0;
+  border-left: 3px black solid;
+  padding-left: 2px;
+}
+
 .message {
   margin: 4px;
   border-radius: 5px;
   padding: 8px;
 }
 
-.message-other {
+.message-received {
   background: #C43884;
   color: white;
 }
 
-.message-my {
-  text-align: right;
+.message-other blockquote {
+  border-left-color: white;
+}
+
+.message-sent {
   background: #B9BBBE;
   color: #18191C;
 }

@@ -5,16 +5,21 @@
   <meta charset="utf-8">
   <title>Chat with others!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/colors/3.0.0/css/colors.css" integrity="sha256-Pzo55mFp0fQ8r7iaGEGV1bFU29iEOStsuyFZxnwciy0=" crossorigin="anonymous">
   <link rel="stylesheet" href="main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.js" integrity="sha256-uhsZv/1rhiqa0K9vDMZzGa5ZEFVECUsJ1yQ7qtShRlc=" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.8/uuid.min.js" integrity="sha256-h7PiJxtxsf7+VkAGN6N+8/0qZrhK7oYJc/pguDnYJi4=" crossorigin="anonymous" defer></script>
+  <!-- TODO: compile scripts into single file -->
+  <script src="compose.js" charset="utf-8" defer></script>
+  <script src="message.js" charset="utf-8" defer></script>
   <script src="main.js" charset="utf-8" defer></script>
 </head>
 
 <body>
   <div id="main">
     <div id="messages"></div>
-    <textarea id="input"></textarea>
+    <textarea id="input" class="line-1"></textarea>
     <button id="send" disabled>Send</button>
   </div>
 </body>
