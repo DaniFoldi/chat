@@ -1,6 +1,8 @@
 const socket = io()
 const md = markdownit({
-  linkify: true
+  breaks: true,
+  linkify: true,
+  typographer: true
 })
 
 let emojireplacements = {}

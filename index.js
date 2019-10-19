@@ -1,6 +1,7 @@
 const express = require('express')
 const io = require('socket.io')
 const http = require('http')
+const articleParser = require('article-parser')
 
 const app = express()
 const server = http.createServer(app)
@@ -8,8 +9,22 @@ const socket = io(server)
 
 const port = process.env.PORT || 3000
 
+// app.use(express.cookieParser())
+// app.use(bodyParser())
+// app.use(express.session({
+//   secret: 'abcdabcd'
+// }))
+// app.use(passport.initialize())
+// app.use(passport.session())
+
 app.use(express.static('public'))
 
+
+app.get('/article-parser', (req, res, next) => {
+  articleParser.extract(req.query.url).then(article => {
+    res.send(article)
+  })
+})
 
 socket.on('connection', async socket => {
   switch (socket.conn.server.clientsCount - 1) {
