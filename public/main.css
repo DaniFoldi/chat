@@ -97,6 +97,14 @@ html {
   font-size: 30px;
 }
 
+.msg-button {
+  visibility: hidden;
+}
+
+.message:hover > .msg-button {
+  visibility: visible;
+}
+
 #send {
   grid-area: send;
   border: none;
