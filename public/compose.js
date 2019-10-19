@@ -8,6 +8,12 @@ function sendMessage() {
     message.properties.replymessage = replymessage.message
     replymessage = {}
   }
+  if (document.getElementById('timing').value !== 'none') {
+    message.properties.timing = parseInt(document.getElementById('timing').value)
+    setTimeout(() => {
+      message.delete()
+    }, message.properties.timing * 1000)
+  }
   messages.push(message)
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
