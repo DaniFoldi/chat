@@ -21,6 +21,25 @@ class Message {
       container.classList.add('message-emoji')
     }
     container.innerHTML = this.properties.displayed
+    if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
+      const original = document.createElement('p')
+      original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
+      container.prepend(original, container.firstChild)
+    }
+    if (this.properties.messagetype !== 'special') {
+      const button = document.createElement('button')
+      container.appendChild(button)
+      button.textContent = 'Reply'
+      button.classList.add('msg-button')
+
+      button.addEventListener('click', () => {
+        replymessage = {
+          user: 'anon',
+          message: this.properties.message
+        }
+        // TODO: display which message is being replied to
+      })
+    }
     this.container = container
     return container
   }
