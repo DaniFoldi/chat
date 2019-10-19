@@ -55,9 +55,7 @@ socket.on('message', data => {
   message.postrender()
   if (data.timing !== 'none') {
     setTimeout(() => {
-      const message = messages.filter(el => el.properties.identifier === identifier)[0]
-      if (typeof message !== 'undefined')
-        message.delete()
+      message.delete()
     }, data.timing * 1000)
   }
 })
