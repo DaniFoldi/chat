@@ -7,7 +7,7 @@ function sendMessage() {
     message.properties.timing = parseInt(document.getElementById('timing').value)
     setTimeout(() => {
       message.delete()
-    }, message.properties.timing*1000)
+    }, message.properties.timing * 1000)
   }
   messages.push(message)
   message.preprocess()
