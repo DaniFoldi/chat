@@ -1,5 +1,5 @@
 function sendMessage() {
-  const data = document.getElementById('input').value
+  const data = document.getElementById('input').value.trim()
   const message = Message.sent({
     message: data
   })
