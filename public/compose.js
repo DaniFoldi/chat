@@ -3,7 +3,7 @@ function sendMessage() {
   const message = Message.sent({
     message: data
   })
-  if (document.getElementById('timing').value!='none') {
+  if (document.getElementById('timing').value !== 'none') {
     message.properties.timing = parseInt(document.getElementById('timing').value)
     setTimeout(() => {
       message.delete()
