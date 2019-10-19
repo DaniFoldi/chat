@@ -48,6 +48,11 @@ class Message {
     }
   }
 
+  delete() {
+    this.container.parentNode.removeChild(this.container)
+    messages.splice(messages.indexOf(this), 1)
+  }
+
 
   static received(properties) {
     properties.messagetype = 'received'

@@ -52,6 +52,13 @@ socket.on('message', data => {
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
   message.postrender()
+  if (data.timing !== 'none') {
+    setTimeout(() => {
+      const message = messages.filter(el => el.properties.identifier === identifier)[0]
+      if (typeof message !== 'undefined')
+      message.delete()
+    }, data.timing * 1000)
+  }
 })
 
 socket.on('special', data => {
@@ -60,4 +67,10 @@ socket.on('special', data => {
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
   message.postrender()
+})
+
+socket.on('delete', identifier => {
+  const message = messages.filter(el => el.properties.identifier === identifier)[0]
+  if (typeof message !== 'undefined')
+  message.delete()
 })
