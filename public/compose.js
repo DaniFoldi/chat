@@ -3,6 +3,11 @@ function sendMessage() {
   const message = Message.sent({
     message: data
   })
+  if (Object.keys(replymessage).length > 0) {
+    message.properties.replyuser = replymessage.user
+    message.properties.replymessage = replymessage.message
+    replymessage = {}
+  }
   messages.push(message)
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
