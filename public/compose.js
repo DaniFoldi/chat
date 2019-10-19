@@ -3,6 +3,11 @@ function sendMessage() {
   const message = Message.sent({
     message: data
   })
+  if (Object.keys(replymessage).length > 0) {
+    message.properties.replyuser = replymessage.user
+    message.properties.replymessage = replymessage.message
+    replymessage = {}
+  }
   if (document.getElementById('timing').value !== 'none') {
     message.properties.timing = parseInt(document.getElementById('timing').value)
     setTimeout(() => {
