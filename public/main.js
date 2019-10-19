@@ -72,5 +72,5 @@ socket.on('special', data => {
 socket.on('delete', identifier => {
   const message = messages.filter(el => el.properties.identifier === identifier)[0]
   if (typeof message !== 'undefined')
-  message.delete()
+    message.delete()
 })
