@@ -65,6 +65,11 @@ class Message {
       }
       this.container.style['margin-left'] = `${i - 2}%`
     }
+    document.getElementById('messages').scroll({
+      behavior: 'smooth',
+      top: this.container.offsetTop,
+      left: 0
+    })
     const links = linkify.find(this.properties.message).filter((el => el.type === 'url'))
     for (let link of links) {
       console.log(link)
