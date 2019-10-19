@@ -21,9 +21,36 @@ class Message {
       container.classList.add('message-emoji')
     }
     container.innerHTML = this.properties.displayed
+    if (this.properties.messagetype !== 'special') {
+      const button = document.createElement('button')
+      container.appendChild(button)
+      button.textContent = 'Reply'
+      button.style.display = "none"
+      container.addEventListener("mouseover", () => {
+        this.replyshow(this)
+      })
+      container.addEventListener("mouseout", () => {
+        this.replyhide(this)
+
+      })
+
+      button.addEventListener('click', () => {
+        this.properties.replying = 'anon'
+        this.properties.reply = this.properties.message
+        
+      })
+
+      this.replybutton = button
+    }
     this.container = container
     return container
   }
+    replyshow(x) {
+      this.replybutton.style.display = "block"
+    }
+    replyhide(x) {
+      this.replybutton.style.display = "none"
+    }
 
   postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
