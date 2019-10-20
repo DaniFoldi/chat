@@ -20,7 +20,7 @@ const port = process.env.PORT || 3000
 app.use(express.static('public'))
 
 
-app.get('/article-parser', (req, res, next) => {
+app.get('/api/tools/article-parser', (req, res, next) => {
   articleParser.extract(req.query.url).then(article => {
     res.send(article)
   })
