@@ -1,7 +1,11 @@
 const express = require('express')
 const io = require('socket.io')
 const http = require('http')
+const passport = require('passport')
+const bodyParser = require('body-parser')
+const session = require('express-session')
 const articleParser = require('article-parser')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 const server = http.createServer(app)
@@ -9,13 +13,18 @@ const socket = io(server)
 
 const port = process.env.PORT || 3000
 
-// app.use(express.cookieParser())
-// app.use(bodyParser())
-// app.use(express.session({
-//   secret: 'abcdabcd'
-// }))
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+app.use(cookieParser())
+app.use(session({
+  secret: 'session secret',
+  resave: false,
+  saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.static('public'))
 
