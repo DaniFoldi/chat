@@ -36,6 +36,14 @@ socket.on('connect', () => {
     message.postrender()
     wasAlreadyConnected = true
   }
+  socket.emit('user', {
+    type: 'token',
+    sessionid: getSessionid()
+  }, data => {
+    if (!data.authenticated) {
+      showpopup('login')
+    }
+  })
 })
 
 socket.on('disconnect', () => {

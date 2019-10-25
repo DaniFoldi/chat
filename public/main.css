@@ -13,6 +13,28 @@ html {
   place-items: stretch stretch;
 }
 
+#popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(50,50,50,.6);
+  z-index: 10;
+}
+
+#popup.shown {
+  display: block;
+}
+
+#popup-content {
+  margin: 30vh 30vw;
+  height: 40vh;
+  width: 40vw;
+  border-radius: 10px;
+}
+
 #messages {
   grid-area: messages;
   overflow-y: scroll;
