@@ -26,8 +26,14 @@
   },
   "homepage": "https://github.com/DaniFoldi/chat#readme",
   "dependencies": {
+    "article-parser": "^3.0.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "passport": "^0.4.0",
-    "socket.io": "^2.3.0"
-  }
+    "mongodb": "^3.3.2",
+    "passport-local": "^1.0.0",
+    "socket.io": "^2.3.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {}
 }

@@ -6,9 +6,6 @@ class Message {
   }
   preprocess() {
     this.properties.displayed = this.properties.message
-    for (let keyword in emojireplacements) {
-      this.properties.displayed = this.properties.displayed.replace(new RegExp(keyword, 'g'), emojireplacements[keyword])
-    }
     this.properties.displayed = this.properties.displayed.replace(/\n/g, '\n\n')
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
@@ -54,7 +51,7 @@ class Message {
     return container
   }
 
-  postrender() {
+  async postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
     if (this.properties.messagetype === 'received') {
       let i = 40
@@ -74,6 +71,20 @@ class Message {
         i++
       }
       this.container.style['margin-left'] = `${i - 2}%`
+    }
+    document.getElementById('messages').scroll({
+      behavior: 'smooth',
+      top: this.container.offsetTop,
+      left: 0
+    })
+    const links = linkify.find(this.properties.message).filter((el => el.type === 'url'))
+    for (let link of links) {
+      console.log(link)
+      const raw = await fetch(`api/tools/article-parser?url=${encodeURIComponent(link.href)}`)
+      const data = await raw.json()
+      const article = document.createElement('article')
+      article.innerHTML = data.content
+      this.container.appendChild(article)
     }
   }
 

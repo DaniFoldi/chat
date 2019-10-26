@@ -33,7 +33,7 @@ document.getElementById('send').addEventListener('click', () => {
 })
 
 document.getElementById('input').addEventListener('keydown', event => {
-  if (!event.shiftKey && event.key === 'Enter') {
+  if (!event.shiftKey && event.key === 'Enter' && document.getElementById('input').value.trim().length > 0) {
     event.preventDefault()
     sendMessage()
   }
