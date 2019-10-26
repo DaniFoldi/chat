@@ -39,7 +39,7 @@ class Message {
         }
         // TODO: display which message is being replied to
       })
-      if (this.properties.messagetype === 'sent'){
+      if (this.properties.messagetype === 'sent') {
       const deleteButton = document.createElement('button')
       container.appendChild(deleteButton)
       deleteButton.textContent = 'Delete'
