@@ -62,7 +62,7 @@ socket.on('message', data => {
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
   message.postrender()
-  if (data.timing !== 'none') {
+  if (data.timing && data.timing !== 'none') {
     setTimeout(() => {
       message.delete()
     }, data.timing * 1000)
