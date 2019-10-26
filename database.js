@@ -47,6 +47,17 @@ module.exports = async () => {
               resolve(res.username)
             })
           })
+        },
+        getIdentifier: username => {
+          return new Promise((resolve, reject) => {
+            db.collection('users').findOne({
+              username: username
+            }, (err, res) => {
+              if (err)
+                return console.log(err) && reject()
+              resolve(res.identifier)
+            })
+          })
         }
       })
     })

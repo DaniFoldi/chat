@@ -83,7 +83,6 @@ socket.on('connection', async socket => {
           sessionid: loginSessionid
         })
         sessions[loginSessionid] = loginData.identifier
-        console.log(await dbHandler.getUsername(loginData.identifier))
         break
       case 'signup':
         const signupData = await dbHandler.signup(data.username, data.email, data.password)
