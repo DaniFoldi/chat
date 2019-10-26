@@ -39,6 +39,16 @@ class Message {
         }
         // TODO: display which message is being replied to
       })
+      if (this.properties.messagetype === 'sent'){
+      const deleteButton = document.createElement('button')
+      container.appendChild(deleteButton)
+      deleteButton.textContent = 'Delete'
+      deleteButton.classList.add('msg-button')
+      deleteButton.addEventListener('click', () => {
+        this.delete()
+        socket.emit('delete', this.properties)
+      })
+    }
     }
     this.container = container
     return container
@@ -68,6 +78,7 @@ class Message {
   }
 
   delete() {
+    if(this.container.parentNode)
     this.container.parentNode.removeChild(this.container)
     messages.splice(messages.indexOf(this), 1)
   }

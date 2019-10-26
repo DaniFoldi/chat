@@ -40,10 +40,15 @@ socket.on('connection', async socket => {
   })
   socket.on('message', async data => {
     socket.broadcast.emit('message', data)
-    if (data.timing !== 'none') {
+    if (data.timing && data.timing !== 'none') {
       setTimeout(() => {
         socket.broadcast.emit('delete', data.identifier)
       }, data.timing * 1000)
+    }
+  })
+  socket.on('delete', async data => {
+    if (data.messagetype === 'sent') {
+      socket.broadcast.emit('delete', data.identifier)
     }
   })
 })
