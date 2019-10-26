@@ -78,7 +78,7 @@ class Message {
   }
 
   delete() {
-    if(this.container.parentNode)
+    if (this.container.parentNode)
     this.container.parentNode.removeChild(this.container)
     messages.splice(messages.indexOf(this), 1)
   }
