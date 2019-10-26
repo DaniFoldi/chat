@@ -1,4 +1,5 @@
 const mongodb = require('mongodb')
+const uuid = require('uuid/v4')
 
 const url = process.env.MONGO_URL || 'mongodb://localhost:27017'
 const database = process.env.MONGO_DB || 'chat'
@@ -18,7 +19,6 @@ module.exports = async () => {
             }, (err, res) => {
               if (err)
                 return console.log(err) && reject()
-              console.log(res)
               resolve(res)
             })
           })
@@ -28,12 +28,23 @@ module.exports = async () => {
             db.collection('users').insertOne({
               username: username,
               email: email,
-              password: password
+              password: password,
+              identifier: uuid()
             }, (err, res) => {
               if (err)
                 return console.log(err) && reject()
-              console.log(res)
               resolve(res)
+            })
+          })
+        },
+        getUsername: identifier => {
+          return new Promise((resolve, reject) => {
+            db.collection('users').findOne({
+              identifier: identifier
+            }, (err, res) => {
+              if (err)
+                return console.log(err) && reject()
+              resolve(res.username)
             })
           })
         }

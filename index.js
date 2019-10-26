@@ -66,7 +66,7 @@ socket.on('connection', async socket => {
       }, data.timing * 1000)
     }
   })
-  
+
   socket.on('delete', async data => {
     if (data.messagetype === 'sent') {
       socket.broadcast.emit('delete', data.identifier)
@@ -82,7 +82,8 @@ socket.on('connection', async socket => {
         callback({
           sessionid: loginSessionid
         })
-        sessions[loginSessionid] = loginData._id
+        sessions[loginSessionid] = loginData.identifier
+        console.log(await dbHandler.getUsername(loginData.identifier))
         break
       case 'signup':
         const signupData = await dbHandler.signup(data.username, data.email, data.password)
@@ -90,7 +91,7 @@ socket.on('connection', async socket => {
         callback({
           sessionid: signupSessionid
         })
-        sessions[signupSessionid] = signupData._id
+        sessions[signupSessionid] = signupData.identifier
         break
       case 'token':
         callback({
