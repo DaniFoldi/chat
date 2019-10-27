@@ -34,7 +34,9 @@ class Message {
           user: 'anon',
           message: this.properties.message
         }
-        // TODO: display which message is being replied to
+        this.container.classList.remove('message-sent')
+        this.container.classList.add('message-replying')
+        document.getElementById("input").focus()
       })
       if (this.properties.messagetype === 'sent') {
       const deleteButton = document.createElement('button')

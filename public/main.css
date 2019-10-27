@@ -98,6 +98,10 @@ html {
   color: white;
 }
 
+.message-replying {
+  background: #FF0000;
+}
+
 .message-other blockquote {
   border-left-color: white;
 }
