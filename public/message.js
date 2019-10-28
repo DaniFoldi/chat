@@ -26,7 +26,7 @@ class Message {
     return container
   }
 
- parseCommand(){
+ parseCommand() {
     if (this.properties.message[0] === "!") {
       if  (this.properties.message.split(' ')[0] === '!shrug') {
         this.properties.message = this.properties.message.split(' ')
@@ -35,6 +35,43 @@ class Message {
         this.properties.message = this.properties.message.join(' ')
       }
     }
+
+    if (this.properties.message[0] === "!") {
+      if  (this.properties.message.split(' ')[0] === '!lenny') {
+        this.properties.message = this.properties.message.split(' ')
+        this.properties.message.shift()
+        this.properties.message.push('( ͡° ͜ʖ ͡°)')
+        this.properties.message = this.properties.message.join(' ')
+      }
+    }
+
+    if (this.properties.message[0] === "!") {
+      if  (this.properties.message.split(' ')[0] === '!uwu') {
+        this.properties.message = this.properties.message.split(' ')
+        this.properties.message.shift()
+        this.properties.message.push('(ᵘﻌᵘ)')
+        this.properties.message = this.properties.message.join(' ')
+      }
+    }
+
+    if (this.properties.message[0] === "!") {
+      if  (this.properties.message.split(' ')[0] === '!tabbleflip') {
+        this.properties.message = this.properties.message.split(' ')
+        this.properties.message.shift()
+        this.properties.message.push('(╯°□°)╯︵ ┻━┻')
+        this.properties.message = this.properties.message.join(' ')
+      }
+    }
+
+    if (this.properties.message[0] === "!") {
+      if  (this.properties.message.split(' ')[0] === '!unflip') {
+        this.properties.message = this.properties.message.split(' ')
+        this.properties.message.shift()
+        this.properties.message.push('┬─┬ ノ( ゜-゜ノ)')
+        this.properties.message = this.properties.message.join(' ')
+      }
+    }
+
   }
   postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
