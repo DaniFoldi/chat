@@ -5,6 +5,7 @@ class Message {
       this.properties.identifier = uuid()
   }
   preprocess() {
+    this.parseCommand()
     this.properties.displayed = this.properties.message
     for (let keyword in emojireplacements) {
       this.properties.displayed = this.properties.displayed.replace(new RegExp(keyword, 'g'), emojireplacements[keyword])
@@ -22,16 +23,15 @@ class Message {
     }
     container.innerHTML = this.properties.displayed
     this.container = container
-    this.parseCommand()
     return container
   }
 
  parseCommand(){
-    if (this.properties.displayed[0]==="!") {
+    if (this.properties.message[0] === "!") {
       if  (this.properties.message.split(' ')[0] === '!shrug') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
-        this.properties.message.push("¯\_(ツ)_/¯")
+        this.properties.message.push('¯\\_(ツ)_/¯')
         this.properties.message = this.properties.message.join(' ')
       }
     }
