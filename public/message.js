@@ -22,9 +22,20 @@ class Message {
     }
     container.innerHTML = this.properties.displayed
     this.container = container
+    this.parseCommand()
     return container
   }
 
+ parseCommand(){
+    if (this.properties.displayed[0]==="!") {
+      if  (this.properties.message.split(' ')[0] === '!shrug') {
+        this.properties.message = this.properties.message.split(' ')
+        this.properties.message.shift()
+        this.properties.message.push("¯\_(ツ)_/¯")
+        this.properties.message = this.properties.message.join(' ')
+      }
+    }
+  }
   postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
     if (this.properties.messagetype === 'received') {
