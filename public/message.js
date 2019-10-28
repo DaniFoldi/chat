@@ -55,7 +55,7 @@ class Message {
     }
 
     if (this.properties.message[0] === "!") {
-      if  (this.properties.message.split(' ')[0] === '!tabbleflip') {
+      if  (this.properties.message.split(' ')[0] === '!tableflip') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
         this.properties.message.push('(╯°□°)╯︵ ┻━┻')
