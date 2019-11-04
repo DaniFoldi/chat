@@ -7,10 +7,11 @@ function clearSessionid() {
 }
 
 function setSessionid(sessionid) {
-  console.log(sessionid)
-  Cookies.set('sessionid', sessionid, {
+  const options = {
     expires: 14,
-    // secure: true,
     sameSite: 'lax'
-  })
+  }
+  if (location.protocol === 'https:')
+    options.secure = true
+  Cookies.set('sessionid', sessionid, options)
 }
