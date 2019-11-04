@@ -3,6 +3,17 @@ function sendMessage() {
   const message = Message.sent({
     message: data
   })
+  if (Object.keys(replymessage).length > 0) {
+    message.properties.replyuser = replymessage.user
+    message.properties.replymessage = replymessage.message
+    replymessage = {}
+  }
+  if (document.getElementById('timing').value !== 'none') {
+    message.properties.timing = parseInt(document.getElementById('timing').value)
+    setTimeout(() => {
+      message.delete()
+    }, message.properties.timing * 1000)
+  }
   messages.push(message)
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
@@ -22,7 +33,7 @@ document.getElementById('send').addEventListener('click', () => {
 })
 
 document.getElementById('input').addEventListener('keydown', event => {
-  if (!event.shiftKey && event.key === 'Enter') {
+  if (!event.shiftKey && event.key === 'Enter' && document.getElementById('input').value.trim().length > 0) {
     event.preventDefault()
     sendMessage()
   }

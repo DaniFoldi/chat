@@ -5,22 +5,42 @@
   <meta charset="utf-8">
   <title>Chat with others!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/colors/3.0.0/css/colors.css" integrity="sha256-Pzo55mFp0fQ8r7iaGEGV1bFU29iEOStsuyFZxnwciy0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/colors/3.0.0/css/colors.min.css" integrity="sha256-AXfT/utsdgZhdZ45r7YAHyYFEVm9ahxk/fTb8n2ZOL4=" crossorigin="anonymous" />
   <link rel="stylesheet" href="main.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.js" integrity="sha256-uhsZv/1rhiqa0K9vDMZzGa5ZEFVECUsJ1yQ7qtShRlc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.min.js" integrity="sha256-YASERpEeN8gRNr/Fy4Km34WGFqIq1h6HkJMAQnVHlhk=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js" integrity="sha256-sCkD25+gPZ/B1/sRgCfgc/CRu11VuHttkcciyDZRJgs=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/twemoji.min.js" integrity="sha256-Y3KC8juDUsBOzJ3XtOH/sj+BAlF9AQr6pEey+4ibaJ4=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it-sup@1.0.0/dist/markdown-it-sup.min.js" integrity="sha256-sIu6voIpxDRGr5ga96AKzJu9iGIiGETTsxEtGkoxP1g=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it-sub@1.0.0/dist/markdown-it-sub.min.js" integrity="sha256-OWGAN6rSNxoo+YnVriUzDbnc1PtuPIBfCpve96gU/Vs=" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.8/uuid.min.js" integrity="sha256-h7PiJxtxsf7+VkAGN6N+8/0qZrhK7oYJc/pguDnYJi4=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.js" integrity="sha256-8QPnOITn0/ggzUZze0guYx+qlaNPOQcMStGMPnNIVpw=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-linkify/2.1.8/linkify.min.js" integrity="sha256-b8aRDYEOoOLGpyaXMI3N2nWUbjSeQ2QxzKjmPnCa4yA=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-linkify/2.1.8/linkify-string.min.js" integrity="sha256-FyCQ9XVSgI4tV3R0ldp8nZkLYPYBwRznvSeFME7tXJ8=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js" integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=" crossorigin="anonymous" defer></script>
   <!-- TODO: compile scripts into single file -->
   <script src="compose.js" charset="utf-8" defer></script>
   <script src="message.js" charset="utf-8" defer></script>
+  <script src="session.js" charset="utf-8"></script>
   <script src="main.js" charset="utf-8" defer></script>
+  <script src="popup.js" charset="utf-8"></script>
 </head>
 
 <body class="bg-silver black">
   <div id="main">
     <div id="messages"></div>
     <textarea id="input" class="line-1"></textarea>
+    <select id="timing">
+      <option value="none">Timing</option>
+      <option value="60">1:00</option>
+      <option value="30">0:30</option>
+      <option value="10">0:10</option>
+    </select>
     <button id="send" disabled>Send</button>
+  </div>
+  <div id="popup">
+    <div id="popup-content" class="bg-silver">
+    </div>
   </div>
 </body>
 
