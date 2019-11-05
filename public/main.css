@@ -99,7 +99,7 @@ html {
 }
 
 .message-replying {
-  background: #FF0000;
+  animation: highlightmessage infinite ease-in-out 2.5s;
 }
 
 .message-other blockquote {
@@ -149,4 +149,17 @@ html {
 
 #send:disabled {
   background: #EAEAEA;
+}
+@keyframes highlightmessage {
+  from {
+    box-shadow: 0 0 10px 0 #AAA;
+  }
+
+  50% {
+    box-shadow: 0 0 10px 5px #AAA;
+  }
+
+  to {
+    box-shadow: 0 0 10px 0 #AAA;
+  }
 }

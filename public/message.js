@@ -34,20 +34,19 @@ class Message {
           user: 'anon',
           message: this.properties.message
         }
-        this.container.classList.remove('message-sent')
         this.container.classList.add('message-replying')
         document.getElementById("input").focus()
       })
       if (this.properties.messagetype === 'sent') {
-      const deleteButton = document.createElement('button')
-      container.appendChild(deleteButton)
-      deleteButton.textContent = 'Delete'
-      deleteButton.classList.add('msg-button')
-      deleteButton.addEventListener('click', () => {
-        this.delete()
-        socket.emit('delete', this.properties)
-      })
-    }
+        const deleteButton = document.createElement('button')
+        container.appendChild(deleteButton)
+        deleteButton.textContent = 'Delete'
+        deleteButton.classList.add('msg-button')
+        deleteButton.addEventListener('click', () => {
+          this.delete()
+          socket.emit('delete', this.properties)
+        })
+      }
     }
     this.container = container
     return container
@@ -92,7 +91,7 @@ class Message {
 
   delete() {
     if (this.container.parentNode)
-    this.container.parentNode.removeChild(this.container)
+      this.container.parentNode.removeChild(this.container)
     messages.splice(messages.indexOf(this), 1)
   }
 
