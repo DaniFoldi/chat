@@ -58,6 +58,61 @@ module.exports = async () => {
               resolve(res.identifier)
             })
           })
+        },
+        conversationsOfUsers: identifiers => {
+          return new Promise((reject, resolve) => {
+            db.collection('conversations').find({
+              participants: {
+                $all: identifiers
+              }
+            }, (err, res) => {
+              if (err)
+                return console.log(err) && reject()
+              resolve(res)
+            })
+          })
+        },
+        newConversation: identifiers => {
+          return new Promise((reject, resolve) => {
+            const identifier = uuid()
+            db.collection('conversations').insertOne({
+              messages: [],
+              participants: identifiers,
+              identifier: identifier
+            }, (err, res) => {
+              if (err)
+                return console.log(err) && reject()
+              resolve(identifier)
+            })
+          })
+        },
+        newMessage: (conversationIdentifer, message) => {
+          return new Promise((reject, resolve) => {
+            db.collection('conversations').updateOne({
+              identifier: conversationIdentifer
+            }, {
+              $push: {
+                messages: message
+              }
+            }, (err, res) => {
+              if (err)
+                return console.log(err) && reject()
+              resolve(res)
+            })
+          })
+        },
+        getinfo: identifier => {
+          return new Promise((reject, resolve) => {
+            db.collection('users').findOne({
+              identifier: identifier
+            }, (err, res) => {
+              if (err)
+                return console.log(err) && reject()
+              resolve({
+                username: res.username
+              })
+            })
+          })
         }
       })
     })

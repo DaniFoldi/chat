@@ -97,6 +97,11 @@ socket.on('connection', async socket => {
           authenticated: typeof sessions[data.sessionid] !== 'undefined'
         })
         break
+      case 'getinfo':
+        const userData = await dbHandler.getinfo(data.identifier)
+        callback({
+          data: userData
+        })
     }
   })
 })
