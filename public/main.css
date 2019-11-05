@@ -98,6 +98,10 @@ html {
   color: white;
 }
 
+.message-replying {
+  animation: highlightmessage infinite ease-in-out 2.5s;
+}
+
 .message-other blockquote {
   border-left-color: white;
 }
@@ -145,4 +149,17 @@ html {
 
 #send:disabled {
   background: #EAEAEA;
+}
+@keyframes highlightmessage {
+  from {
+    box-shadow: 0 0 10px 0 #AAA;
+  }
+
+  50% {
+    box-shadow: 0 0 10px 5px #AAA;
+  }
+
+  to {
+    box-shadow: 0 0 10px 0 #AAA;
+  }
 }

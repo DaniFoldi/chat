@@ -19,6 +19,9 @@ function sendMessage() {
   document.getElementById('messages').appendChild(message.render())
   message.postrender()
   socket.emit('message', message.properties)
+  document.querySelectorAll('.message-replying').forEach((el, i) => {
+    el.classList.remove('message-replying')
+  })
   document.getElementById('input').value = ''
   document.getElementById('send').disabled = true
   document.getElementById('input').classList.forEach(el => {
