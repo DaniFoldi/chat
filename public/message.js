@@ -38,65 +38,52 @@ class Message {
         // TODO: display which message is being replied to
       })
       if (this.properties.messagetype === 'sent') {
-      const deleteButton = document.createElement('button')
-      container.appendChild(deleteButton)
-      deleteButton.textContent = 'Delete'
-      deleteButton.classList.add('msg-button')
-      deleteButton.addEventListener('click', () => {
-        this.delete()
-        socket.emit('delete', this.properties)
-      })
-    }
+        const deleteButton = document.createElement('button')
+        container.appendChild(deleteButton)
+        deleteButton.textContent = 'Delete'
+        deleteButton.classList.add('msg-button')
+        deleteButton.addEventListener('click', () => {
+          this.delete()
+          socket.emit('delete', this.properties)
+        })
+      }
     }
     this.container = container
     return container
   }
- parseCommand() {
+  parseCommand() {
     if (this.properties.message[0] === "!") {
-      if  (this.properties.message.split(' ')[0] === '!shrug') {
+      if (this.properties.message.split(' ')[0] === '!shrug') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
         this.properties.message.push('¯\\_(ツ)_/¯')
         this.properties.message = this.properties.message.join(' ')
       }
-    }
-
-    if (this.properties.message[0] === "!") {
-      if  (this.properties.message.split(' ')[0] === '!lenny') {
+      if (this.properties.message.split(' ')[0] === '!lenny') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
         this.properties.message.push('( ͡° ͜ʖ ͡°)')
         this.properties.message = this.properties.message.join(' ')
       }
-    }
-
-    if (this.properties.message[0] === "!") {
-      if  (this.properties.message.split(' ')[0] === '!uwu') {
+      if (this.properties.message.split(' ')[0] === '!uwu') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
         this.properties.message.push('(ᵘﻌᵘ)')
         this.properties.message = this.properties.message.join(' ')
       }
-    }
-
-    if (this.properties.message[0] === "!") {
-      if  (this.properties.message.split(' ')[0] === '!tableflip') {
+      if (this.properties.message.split(' ')[0] === '!tableflip') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
         this.properties.message.push('(╯°□°)╯︵ ┻━┻')
         this.properties.message = this.properties.message.join(' ')
       }
-    }
-
-    if (this.properties.message[0] === "!") {
-      if  (this.properties.message.split(' ')[0] === '!unflip') {
+      if (this.properties.message.split(' ')[0] === '!unflip') {
         this.properties.message = this.properties.message.split(' ')
         this.properties.message.shift()
         this.properties.message.push('┬─┬ ノ( ゜-゜ノ)')
         this.properties.message = this.properties.message.join(' ')
       }
     }
-
   }
   async postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
@@ -137,7 +124,7 @@ class Message {
 
   delete() {
     if (this.container.parentNode)
-    this.container.parentNode.removeChild(this.container)
+      this.container.parentNode.removeChild(this.container)
     messages.splice(messages.indexOf(this), 1)
   }
 
