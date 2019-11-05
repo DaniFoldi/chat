@@ -34,6 +34,9 @@ class Message {
           user: 'anon',
           message: this.properties.message
         }
+        document.querySelectorAll('.message-replying').forEach((el, i) => {
+          el.classList.remove('message-replying')
+        })
         this.container.classList.add('message-replying')
         document.getElementById("input").focus()
       })
