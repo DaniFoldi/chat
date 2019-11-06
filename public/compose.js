@@ -72,6 +72,18 @@ function parseCommands(message) {
       message.properties.message.push('┬─┬ ノ( ゜-゜ノ)')
       message.properties.message = message.properties.message.join(' ')
     }
+    if (message.properties.message.split(' ')[0] === '!ping') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.ping = true
+      message.properties.message = message.properties.message.join(' ')
+    }
+    if (message.properties.message.split(' ')[0] === '!meow') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.meow = true
+      message.properties.message = message.properties.message.join(' ')
+    }
   }
 }
 

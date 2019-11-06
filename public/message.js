@@ -55,7 +55,12 @@ class Message {
     return container
   }
   async postrender() {
+    if (this.properties.messagetype === 'received') {
+      if (this.properties.ping) {
+        playSound(soundEffects.bell)
       }
+      if (this.properties.meow) {
+        playSound(soundEffects.meow)
       }
     }
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
