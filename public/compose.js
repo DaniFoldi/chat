@@ -38,14 +38,14 @@ document.getElementById('send').addEventListener('click', () => {
 
 function parseCommands(message) {
   if (message.properties.message[0] === "!" && message.properties.message[1] === "!") {
-    message.properties.message.shift()
+    message.properties.message = message.properties.message.substr(1)
     return
   }
   if (message.properties.message[0] === "!") {
     if (message.properties.message.split(' ')[0] === '!shrug') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
-      message.properties.message.push('¯\\_(ツ)_/¯')
+      message.properties.message.push('¯\\\\_(ツ)\\_/¯')
       message.properties.message = message.properties.message.join(' ')
     }
     if (message.properties.message.split(' ')[0] === '!lenny') {
