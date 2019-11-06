@@ -14,6 +14,7 @@ function sendMessage() {
       message.delete()
     }, message.properties.timing * 1000)
   }
+  parseCommands(message)
   messages.push(message)
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
@@ -34,6 +35,46 @@ function sendMessage() {
 document.getElementById('send').addEventListener('click', () => {
   sendMessage()
 })
+
+function parseCommands(message) {
+  if (message.properties.message[0] === "!" && message.properties.message[1] === "!") {
+    message.properties.message.shift()
+    return
+  }
+  if (message.properties.message[0] === "!") {
+    console.log(message.properties.message.split(' ')[0])
+    if (message.properties.message.split(' ')[0] === '!shrug') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.message.push('¯\\_(ツ)_/¯')
+      message.properties.message = message.properties.message.join(' ')
+    }
+    if (message.properties.message.split(' ')[0] === '!lenny') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.message.push('( ͡° ͜ʖ ͡°)')
+      message.properties.message = message.properties.message.join(' ')
+    }
+    if (message.properties.message.split(' ')[0] === '!uwu') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.message.push('(ᵘﻌᵘ)')
+      message.properties.message = message.properties.message.join(' ')
+    }
+    if (message.properties.message.split(' ')[0] === '!tableflip') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.message.push('(╯°□°)╯︵ ┻━┻')
+      message.properties.message = message.properties.message.join(' ')
+    }
+    if (message.properties.message.split(' ')[0] === '!unflip') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.message.push('┬─┬ ノ( ゜-゜ノ)')
+      message.properties.message = message.properties.message.join(' ')
+    }
+  }
+}
 
 document.getElementById('input').addEventListener('keydown', event => {
   if (!event.shiftKey && event.key === 'Enter' && document.getElementById('input').value.trim().length > 0) {
