@@ -85,7 +85,6 @@ class Message {
     })
     const links = linkify.find(this.properties.message).filter((el => el.type === 'url'))
     for (let link of links) {
-      console.log(link)
       const raw = await fetch(`api/tools/article-parser?url=${encodeURIComponent(link.href)}`)
       const data = await raw.json()
       const article = document.createElement('article')

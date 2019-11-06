@@ -42,7 +42,6 @@ function parseCommands(message) {
     return
   }
   if (message.properties.message[0] === "!") {
-    console.log(message.properties.message.split(' ')[0])
     if (message.properties.message.split(' ')[0] === '!shrug') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
