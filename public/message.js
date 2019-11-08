@@ -15,12 +15,13 @@ class Message {
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
-    if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
+        if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
     container.innerHTML = this.properties.displayed
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
-      const original = document.createElement('p')
+      this.properties.messagetype = 'reply'
+      const original = document.createElement('b')
       original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
       container.prepend(original, container.firstChild)
     }
@@ -52,6 +53,21 @@ class Message {
         })
       }
     }
+
+    //feladó kiírása, 56.sor message.js
+    //fent nem működik (18.sor), nem tudom, miért
+    if (this.properties.messagetype === 'received' || this.properties.messagetype === 'reply') {
+      this.properties.user = socket.emit('user',
+        {type:'getInfo',identifier:'user.identifier'},username => {console.log(username)}
+      )
+      const myMessage = document.createElement('b')
+      myMessage.textContent = `feladó: ${this.properties.user} `
+      container.prepend(myMessage, container.firstChild)
+      let profil = document.createElement('IMG')
+      container.prepend(profil, container.firstChild)
+      profil.src='https://scontent-vie1-1.xx.fbcdn.net/v/t31.0-8/p960x960/12976728_129746087426668_8421938268686210730_o.jpg?_nc_cat=108&_nc_oc=AQkoaRPDQR24ypMXzR2Og0fb-l5jQIKhxIOdrGij2QE97BexCzsEvnNYc6KPvoSuhvsThlIl8Z6-by0p6lKwKXyW&_nc_ht=scontent-vie1-1.xx&oh=dafb6142d9a48eb4733fcac65bac3809&oe=5E5342C0'
+    }
+
     this.container = container
     return container
   }
@@ -91,7 +107,7 @@ class Message {
   }
   async postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
-    if (this.properties.messagetype === 'received') {
+    if (this.properties.messagetype === 'received' || this.properties.messagetype === 'reply') {
       let i = 40
       this.container.style['margin-right'] = `${i}%`
       const originalHeight = this.container.offsetHeight

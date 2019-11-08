@@ -81,6 +81,23 @@ html {
   word-wrap: break-word;
 }
 
+/*felado kiírása, 84. sor, main.css*/
+.message b {
+  display: block;
+  margin: 2px;
+  word-wrap: break-word;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.message img {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: 0px;
+}
+
 .message blockquote {
   margin: -2px 0;
   border-left: 3px black solid;
