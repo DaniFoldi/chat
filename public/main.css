@@ -39,6 +39,7 @@ html {
   grid-area: sidebar;
   display: grid;
   grid-template-columns: 100%;
+  overflow-y: scroll;
 }
 
 #messages {
