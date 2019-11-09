@@ -37,6 +37,8 @@ html {
 
 #sidebar {
   grid-area: sidebar;
+  display: grid;
+  grid-template-columns: 100%;
 }
 
 #messages {
