@@ -9,7 +9,7 @@ html {
 #main {
   display: grid;
   height: 100vh;
-  grid-template: 'sidebar messages messages messages .' 1fr 'sidebar timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
+  grid-template: 'title messages messages messages .' auto 'sidebar messages messages messages .' 1fr 'sidebar timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
   place-items: stretch stretch;
 }
 
@@ -35,11 +35,27 @@ html {
   border-radius: 10px;
 }
 
+#title {
+  grid-area: title;
+  margin: 0px;
+  padding: 20px;
+}
+
 #sidebar {
   grid-area: sidebar;
   display: grid;
   grid-template-columns: 100%;
   overflow-y: scroll;
+}
+
+#sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+#sidebar > .title {
+  height: 50px;
+  font-size: 14px;
+  position: sticky;
 }
 
 #messages {
