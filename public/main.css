@@ -9,7 +9,7 @@ html {
 #main {
   display: grid;
   height: 100vh;
-  grid-template: '. messages messages messages .' 1fr '. timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
+  grid-template: 'sidebar messages messages messages .' 1fr 'sidebar timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
   place-items: stretch stretch;
 }
 
@@ -33,6 +33,10 @@ html {
   height: 40vh;
   width: 40vw;
   border-radius: 10px;
+}
+
+#sidebar {
+  grid-area: sidebar;
 }
 
 #messages {
