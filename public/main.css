@@ -37,6 +37,7 @@ html {
 
 #sidebar {
   grid-area: sidebar;
+  background-color: #3D9970
 }
 
 #messages {
