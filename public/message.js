@@ -20,7 +20,7 @@ class Message {
     }
     container.innerHTML = this.properties.displayed
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
-      this.properties.messagetype = 'reply'
+
       const original = document.createElement('b')
       original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
       container.prepend(original, container.firstChild)
@@ -33,7 +33,7 @@ class Message {
 
       button.addEventListener('click', () => {
         replymessage = {
-          user: 'anon',
+          user: 'aron',
           message: this.properties.message
         }
         document.querySelectorAll('.message-replying').forEach((el, i) => {
@@ -56,10 +56,10 @@ class Message {
 
     //feladó kiírása, 56.sor message.js
     //fent nem működik (18.sor), nem tudom, miért
-    if (this.properties.messagetype === 'received' || this.properties.messagetype === 'reply') {
-      this.properties.user = socket.emit('user',
-        {type:'getInfo',identifier:'user.identifier'},username => {console.log(username)}
-      )
+    if (this.properties.messagetype === 'received') {
+      //socket.emit('user',
+      //  {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
+      //)
       const myMessage = document.createElement('b')
       myMessage.textContent = `feladó: ${this.properties.user} `
       container.prepend(myMessage, container.firstChild)
@@ -107,7 +107,7 @@ class Message {
   }
   async postrender() {
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
-    if (this.properties.messagetype === 'received' || this.properties.messagetype === 'reply') {
+    if (this.properties.messagetype === 'received') {
       let i = 40
       this.container.style['margin-right'] = `${i}%`
       const originalHeight = this.container.offsetHeight
