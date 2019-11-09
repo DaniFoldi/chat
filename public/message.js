@@ -24,6 +24,23 @@ class Message {
       container.prepend(original, container.firstChild)
     }
     if (this.properties.messagetype !== 'special') {
+const reactButton=document.createElement('button')
+container.appendChild(reactButton)
+const reactCount=document.createElement('span')
+container.appendChild(reactCount)
+reactCount.textContent='0'
+const heartImage=document.createElement('image')
+heartImage.src='images/heart_empty.svg'
+reactButton.appendChild(heartImage)
+reactButton.addEventListener('click', () => {
+  if (heartImage.src==='images/heart_empty.svg'){
+    socket.emit('messageevent', {type:'react', identifier: this.properties.identifier})
+    heartImage.src='images/heart_filled.svg'
+  }else{
+    socket.emit('messageevent', {type:'unreact', identifier: this.properties.identifier})
+    heartImage.src='images/heart_empty.svg'
+  }
+})
       const button = document.createElement('button')
       container.appendChild(button)
       button.textContent = 'Reply'

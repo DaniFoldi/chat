@@ -93,3 +93,14 @@ socket.on('delete', identifier => {
   if (typeof message !== 'undefined')
     message.delete()
 })
+
+socket.on ('messageevent', data=>{
+  const message = messages.filter(el => el.properties.identifier === data.identifier)[0]
+  const label = message.container.getElementsByTagName('span')[0]
+  if (data.type === 'react'){
+    label.textContent=parseInt(label.textContent)+1
+
+  }else{
+    label.textContent=parseInt(label.textContent)-1
+  }
+})
