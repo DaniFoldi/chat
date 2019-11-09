@@ -133,6 +133,14 @@ html {
 .msg-button {
   visibility: hidden;
 }
+.chat-button {
+  visibility: visible;
+  display: block;
+  margin: 4px;
+  border-radius: 5px;
+  padding: 8px;
+  height: 43px; 
+}
 
 .message:hover > .msg-button {
   visibility: visible;
