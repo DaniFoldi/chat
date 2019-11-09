@@ -71,6 +71,10 @@ html {
   outline: none;
 }
 
+.message div {
+  display: inline-block;
+}
+
 .message a {
   color: inherit;
   font-weight: bold;

@@ -12,6 +12,9 @@ class Message {
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
   render() {
+    const bigContainer = document.createElement('div')
+    bigContainer.classList.add('message')
+    //bigContainer.style['background-color'] = '#FFDC00'
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
@@ -19,6 +22,7 @@ class Message {
       container.classList.add('message-emoji')
     }
     container.innerHTML = this.properties.displayed
+    //container.style['left'] = '60px'
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
 
       const original = document.createElement('b')
@@ -53,23 +57,20 @@ class Message {
         })
       }
     }
-
-    //feladó kiírása, 56.sor message.js
-    //fent nem működik (18.sor), nem tudom, miért
     if (this.properties.messagetype === 'received') {
       //socket.emit('user',
       //  {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
       //)
-      const myMessage = document.createElement('b')
-      myMessage.textContent = `feladó: ${this.properties.user} `
-      container.prepend(myMessage, container.firstChild)
+      const senderName = document.createElement('b')
+      senderName.textContent = `feladó: ${this.properties.user} `
+      bigContainer.prepend(senderName)
       let profil = document.createElement('IMG')
-      container.prepend(profil, container.firstChild)
+      bigContainer.appendChild(profil)
       profil.src='https://scontent-vie1-1.xx.fbcdn.net/v/t31.0-8/p960x960/12976728_129746087426668_8421938268686210730_o.jpg?_nc_cat=108&_nc_oc=AQkoaRPDQR24ypMXzR2Og0fb-l5jQIKhxIOdrGij2QE97BexCzsEvnNYc6KPvoSuhvsThlIl8Z6-by0p6lKwKXyW&_nc_ht=scontent-vie1-1.xx&oh=dafb6142d9a48eb4733fcac65bac3809&oe=5E5342C0'
     }
-
-    this.container = container
-    return container
+    bigContainer.appendChild(container)
+    this.bigContainer = bigContainer
+    return bigContainer
   }
   parseCommand() {
     if (this.properties.message[0] === "!") {
@@ -106,29 +107,29 @@ class Message {
     }
   }
   async postrender() {
-    const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
+    /*const maxmargin = this.bigContainer.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove //this part
     if (this.properties.messagetype === 'received') {
       let i = 40
-      this.container.style['margin-right'] = `${i}%`
-      const originalHeight = this.container.offsetHeight
-      while (this.container.offsetHeight === originalHeight && i < maxmargin) {
-        this.container.style['margin-right'] = `${i}%`
+      this.bigContainer.style['margin-right'] = `${i}%`
+      const originalHeight = this.bigContainer.offsetHeight
+      while (this.bigContainer.offsetHeight === originalHeight && i < maxmargin) {
+        this.bigContainer.style['margin-right'] = `${i}%`
         i++
       }
-      this.container.style['margin-right'] = `${i - 2}%`
+      this.bigContainer.style['margin-right'] = `${i - 2}%`
     } else if (this.properties.messagetype === 'sent') {
       let i = 40
-      this.container.style['margin-left'] = `${i}%`
-      const originalHeight = this.container.offsetHeight
-      while (this.container.offsetHeight === originalHeight && i < maxmargin) {
-        this.container.style['margin-left'] = `${i}%`
+      this.bigContainer.style['margin-left'] = `${i}%`
+      const originalHeight = this.bigContainer.offsetHeight
+      while (this.bigContainer.offsetHeight === originalHeight && i < maxmargin) {
+        this.bigContainer.style['margin-left'] = `${i}%`
         i++
       }
-      this.container.style['margin-left'] = `${i - 2}%`
-    }
+      this.bigContainer.style['margin-left'] = `${i - 2}%`
+    }*/
     document.getElementById('messages').scroll({
       behavior: 'smooth',
-      top: this.container.offsetTop,
+      top: this.bigContainer.offsetTop,
       left: 0
     })
     const links = linkify.find(this.properties.message).filter((el => el.type === 'url'))
