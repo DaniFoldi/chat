@@ -24,6 +24,30 @@ class Message {
       container.prepend(original, container.firstChild)
     }
     if (this.properties.messagetype !== 'special') {
+      const reactButton = document.createElement('button')
+      container.appendChild(reactButton)
+      const reactCount = document.createElement('span')
+      container.appendChild(reactCount)
+      reactCount.textContent = '0'
+      reactButton.classList.add('msg-button')
+      reactButton.classList.add('reaction')
+      reactButton.addEventListener('click', () => {
+        if (!reactButton.classList.contains('filled')) {
+          socket.emit('messageevent', {
+            type: 'react',
+            identifier: this.properties.identifier
+          })
+          reactButton.classList.add('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) + 1
+        } else {
+          socket.emit('messageevent', {
+            type: 'unreact',
+            identifier: this.properties.identifier
+          })
+          reactButton.classList.remove('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) - 1
+        }
+      })
       const button = document.createElement('button')
       container.appendChild(button)
       button.textContent = 'Reply'
