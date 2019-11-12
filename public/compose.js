@@ -84,6 +84,12 @@ function parseCommands(message) {
       message.properties.meow = true
       message.properties.message = message.properties.message.join(' ')
     }
+    if (message.properties.message.split(' ')[0] === '!shake') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.shake = true
+      message.properties.message = message.properties.message.join(' ')
+    }
   }
 }
 

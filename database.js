@@ -114,6 +114,22 @@ module.exports = async () => {
             })
           })
         }
+        // deleteMessage: (conversationIdentifer, messageIdentifier) => {
+        //   return new Promise((reject, resolve) => {
+        //     db.collection('conversations').({
+        //       identifier: conversationIdentifer,
+        //       'message.identifier'
+        //     }, {
+        //       $push: {
+        //         messages: message
+        //       }
+        //     }, (err, res) => {
+        //       if (err)
+        //         return console.log(err) && reject()
+        //       resolve(res)
+        //     })
+        //   })
+        // }
       })
     })
   })

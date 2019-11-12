@@ -23,6 +23,12 @@ class Message {
       original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
       container.prepend(original, container.firstChild)
     }
+    if (this.properties.shake) {
+      container.classList.add('shake')
+      container.classList.add('shake-constant')
+      container.classList.add('shake-constant--hover')
+      container.classList.add('shake-slow')
+    }
     if (this.properties.messagetype !== 'special') {
       const reactButton = document.createElement('button')
       container.appendChild(reactButton)
