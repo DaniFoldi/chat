@@ -128,6 +128,21 @@ html {
   font-size: 30px;
 }
 
+.spoiler {
+  padding: 3px;
+  border-radius: 2px;
+  background: gray;
+  color: gray;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.spoiler:hover {
+  color: white;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
 .msg-button {
   visibility: hidden;
 }

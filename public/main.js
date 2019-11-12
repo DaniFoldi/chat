@@ -4,6 +4,7 @@ const md = markdownit({
   linkify: true,
   typographer: true
 })
+md.use(markdownitSpoiler)
 md.use(markdownitSup)
 md.use(markdownitSub)
 md.use(markdownitEmoji)
