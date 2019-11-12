@@ -6,7 +6,6 @@ class Message {
     if (typeof this.properties.timestamp === 'undefined') {
       this.properties.timestamp = (new Date()).toString().split(' ', 5)
     }
-
   }
   preprocess() {
     this.properties.displayed = this.properties.message
