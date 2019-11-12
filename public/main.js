@@ -8,6 +8,7 @@ md.use(markdownitSpoiler)
 md.use(markdownitSup)
 md.use(markdownitSub)
 md.use(markdownitEmoji)
+md.use(markdownitKbd)
 md.use(md => {
   const temp = md.renderer.rules.fence.bind(md.renderer.rules)
   md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
