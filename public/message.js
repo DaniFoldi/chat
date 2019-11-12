@@ -29,22 +29,23 @@ class Message {
       const reactCount = document.createElement('span')
       container.appendChild(reactCount)
       reactCount.textContent = '0'
-      const heartImage = document.createElement('image')
-      heartImage.src = 'images/heart_empty.svg'
-      reactButton.appendChild(heartImage)
+      reactButton.classList.add('msg-button')
+      reactButton.classList.add('reaction')
       reactButton.addEventListener('click', () => {
-        if (heartImage.src === 'images/heart_empty.svg') {
+        if (!reactButton.classList.contains('filled')) {
           socket.emit('messageevent', {
             type: 'react',
             identifier: this.properties.identifier
           })
-          heartImage.src = 'images/heart_filled.svg'
+          reactButton.classList.add('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) + 1
         } else {
           socket.emit('messageevent', {
             type: 'unreact',
             identifier: this.properties.identifier
           })
-          heartImage.src = 'images/heart_empty.svg'
+          reactButton.classList.remove('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) - 1
         }
       })
       const button = document.createElement('button')

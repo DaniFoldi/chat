@@ -99,7 +99,6 @@ socket.on('messageevent', data => {
   const label = message.container.getElementsByTagName('span')[0]
   if (data.type === 'react') {
     label.textContent = parseInt(label.textContent) + 1
-
   } else {
     label.textContent = parseInt(label.textContent) - 1
   }

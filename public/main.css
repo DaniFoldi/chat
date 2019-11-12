@@ -131,6 +131,17 @@ html {
   visibility: visible;
 }
 
+.msg-button.reaction {
+  background: url('images/heart_empty.svg') no-repeat;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.msg-button.reaction.filled {
+  background: url('images/heart_filled.svg') no-repeat;
+}
+
 #send {
   grid-area: send;
   border: none;

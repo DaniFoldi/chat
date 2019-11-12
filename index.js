@@ -107,7 +107,6 @@ socket.on('connection', async socket => {
 
   socket.on('messageevent', async data => {
     socket.broadcast.emit('messageevent', data)
-    socket.emit('messageevent', data)
   })
 })
 
