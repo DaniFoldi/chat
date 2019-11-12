@@ -4,9 +4,7 @@ class Message {
     if (typeof this.properties.identifier === 'undefined')
       this.properties.identifier = uuid()
     if (typeof this.properties.timestamp === 'undefined') {
-      let date = new Date()
-      let datea = date.toString().split(" ", 5)
-      this.properties.timestampa = datea
+      this.properties.timestamp = (new Date()).toString().split(' ', 5)
     }
 
   }
@@ -25,14 +23,11 @@ class Message {
     container.classList.add('message-' + this.properties.messagetype)
     const timestamp = document.createElement('p')
     timestamp.classList.add('timestamp')
-    let datea = this.properties.timestampa
-    let dat = new Date()
-    if (datea[1] === dat.toString().split(" ", 5) [1] && datea [2] === dat.toString().split(" ", 5) [2] && datea[3] === dat.toString().split(" ", 5) [3]){
-      timestamp.textContent = datea [4]
+    const currentDate = (new Date()).toString().split(' ', 5)
+    if (this.properties.timestamp[1] === currentDate[1] && this.properties.timestamp[2] === currentDate[2] && this.properties.timestamp[3] === currentDate[3]) {
+      timestamp.textContent = currentDate[4]
     } else {
-      for (let i=0; i<datea.length; i++) {
-         timestamp.textContent += " " + datea[i]
-      }
+      timestamp.textContent = currentDate.join(' ')
     }
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
