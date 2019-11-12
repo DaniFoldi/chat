@@ -31,12 +31,10 @@ window.markdownitSpoiler = (md, frontPriorMode = false) => {
   // TODO: possibly change # to |
   const tokenize = frontPriorMode => (state, silent) => {
 
-    console.log(exMark)
     if (silent) return false
 
     const start = state.pos
     const marker = state.src.charCodeAt(start)
-    console.log(exMark)
 
     if (marker !== exMark) return false
 
