@@ -95,6 +95,8 @@ class Message {
     }
     this.container = container
     container.addEventListener('click', () => {
+      if (!container.classList.contains('shake-slow'))
+        return
       container.classList.remove('shake-slow')
       container.classList.add('shake-little')
     })
