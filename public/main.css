@@ -42,6 +42,29 @@ html {
   overflow-y: scroll;
 }
 
+#createChatpopup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(50,50,50,.6);
+  z-index: 10;
+}
+
+#CreateChatpopup.shown {
+  display: block;
+}
+
+#createChatpopup-content {
+  margin: 30vh 30vw;
+  height: 40vh;
+  width: 40vw;
+  border-radius: 10px;
+}
+
+
 #messages {
   grid-area: messages;
   overflow-y: scroll;
@@ -139,7 +162,7 @@ html {
   margin: 4px;
   border-radius: 5px;
   padding: 8px;
-  height: 43px; 
+  height: 43px;
 }
 
 .message:hover > .msg-button {
