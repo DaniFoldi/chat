@@ -110,6 +110,9 @@ class Message {
       if (this.properties.meow) {
         playSound(soundEffects.meow)
       }
+      if (this.properties.badumtss) {
+        playSound(soundEffects.badumtss)
+      }
     }
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
     if (this.properties.messagetype === 'received') {

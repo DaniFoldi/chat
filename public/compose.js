@@ -91,6 +91,13 @@ function parseCommands(message) {
       message.properties.message = message.properties.message.join(' ')
       return
     }
+    if (message.properties.message.split(' ')[0] === '!badumtss') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.badumtss = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
     if (message.properties.message.split(' ')[0] === '!shake') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()

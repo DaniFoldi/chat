@@ -1,4 +1,5 @@
 const soundEffects = {
+  badumtss: 'sounds/badumtss.mp3',
   bell: 'sounds/bell.mp3',
   meow: 'sounds/meow.mp3'
 }
