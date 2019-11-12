@@ -94,6 +94,10 @@ class Message {
       }
     }
     this.container = container
+    container.addEventListener('click', () => {
+      container.classList.remove('shake-slow')
+      container.classList.add('shake-little')
+    })
     return container
   }
   async postrender() {
