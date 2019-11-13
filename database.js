@@ -33,7 +33,7 @@ module.exports = async () => {
             }, (err, res) => {
               if (err)
                 return console.log(err) && reject()
-              resolve(res)
+              resolve(res.ops[0])
             })
           })
         },
