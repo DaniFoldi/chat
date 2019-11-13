@@ -105,6 +105,13 @@ function parseCommands(message) {
       message.properties.message = message.properties.message.join(' ')
       return
     }
+    if (message.properties.message.split(' ')[0] === '!lmgtfy') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.lmgtfy = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
   }
 }
 

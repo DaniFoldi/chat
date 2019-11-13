@@ -10,6 +10,10 @@ class Message {
   preprocess() {
     this.properties.displayed = this.properties.message
     this.properties.displayed = this.properties.displayed.replace(/\n/g, '\n\n')
+    if (this.properties.lmgtfy) {
+      this.properties.displayed = `<iframe class='lmgtfy' src='https://lmgtfy.com/?q=${this.properties.message}'></iframe>`
+      return
+    }
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
@@ -27,6 +31,9 @@ class Message {
     }
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
+    }
+    if (this.properties.lmgtfy) {
+      container.classList.add('message-large')
     }
     container.innerHTML = this.properties.displayed
     container.appendChild(timestamp)

@@ -152,6 +152,12 @@ kbd {
   text-transform: uppercase;
 }
 
+.lmgtfy,
+.message-large {
+  min-width: 40vw;
+  min-height: 40vh;
+}
+
 .msg-button {
   visibility: hidden;
 }
