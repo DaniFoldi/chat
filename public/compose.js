@@ -112,6 +112,20 @@ function parseCommands(message) {
       message.properties.message = message.properties.message.join(' ')
       return
     }
+    if (message.properties.message.split(' ')[0] === '!zalgo') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.zalgo = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!glitch') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.glitch = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
   }
 }
 

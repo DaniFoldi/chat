@@ -14,6 +14,15 @@ class Message {
       this.properties.displayed = `<iframe class='lmgtfy' src='https://lmgtfy.com/?q=${this.properties.message}'></iframe>`
       return
     }
+    if (this.properties.zalgo) {
+      this.properties.displayed = zalgo(this.properties.displayed)
+      console.log(this.properties.displayed)
+      return
+    }
+    if (this.properties.glitch) {
+      this.properties.displayed = glitch(this.properties.displayed)
+      return
+    }
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
