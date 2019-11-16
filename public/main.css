@@ -2,6 +2,8 @@ body,
 html {
   margin: 0;
   padding: 0;
+  background: #DDDDDD;
+  color: #111111;
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
 }
@@ -9,7 +11,7 @@ html {
 #main {
   display: grid;
   height: 100vh;
-  grid-template: 'sidebar messages messages messages .' 1fr 'sidebar timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
+  grid-template: 'title messages messages messages .' auto 'sidebar messages messages messages .' 1fr 'sidebar timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
   place-items: stretch stretch;
 }
 
@@ -29,17 +31,32 @@ html {
 }
 
 #popup-content {
+  background: #DDDDDD;
   margin: 30vh 30vw;
   height: 40vh;
   width: 40vw;
   border-radius: 10px;
 }
 
+#title {
+  grid-area: title;
+  background: #3D9970;
+  text-align: center;
+  margin: 0px;
+  padding: 20px;
+  border-bottom: 1px solid #111111;
+}
+
 #sidebar {
   grid-area: sidebar;
   display: grid;
   grid-template-columns: 100%;
+  background: #3D9970;
   overflow-y: scroll;
+}
+
+#sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 #createChatpopup {
@@ -63,7 +80,6 @@ html {
   width: 40vw;
   border-radius: 10px;
 }
-
 
 #messages {
   grid-area: messages;
