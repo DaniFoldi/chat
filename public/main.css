@@ -2,6 +2,8 @@ body,
 html {
   margin: 0;
   padding: 0;
+  background: #DDDDDD;
+  color: #111111;
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
 }
@@ -29,6 +31,7 @@ html {
 }
 
 #popup-content {
+  background: #DDDDDD;
   margin: 30vh 30vw;
   height: 40vh;
   width: 40vw;
@@ -37,6 +40,7 @@ html {
 
 #title {
   grid-area: title;
+  background: #3D9970;
   margin: 0px;
   padding: 20px;
 }
@@ -45,6 +49,7 @@ html {
   grid-area: sidebar;
   display: grid;
   grid-template-columns: 100%;
+  background: #3D9970;
   overflow-y: scroll;
 }
 
