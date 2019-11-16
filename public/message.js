@@ -126,10 +126,9 @@ class Message {
       //socket.emit('user',
       //  {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
       //)
-      if (typeof this.properties.replyuser == 'undefined' && typeof this.properties.replymessage == 'undefined') {const senderName = document.createElement('i')
+      if (typeof this.properties.replyuser == 'undefined' && typeof this.properties.replymessage == 'undefined') {
+      const senderName = document.createElement('i')
       senderName.textContent = `${this.properties.user}`
-      senderName.style['left'] = '60px'
-      senderName.style['top'] = '14px'
       bigContainer.prepend(senderName)}
       let profile = document.createElement('IMG')
       bigContainer.appendChild(profile)
@@ -138,17 +137,16 @@ class Message {
     }
     bigContainer.appendChild(container)
     this.bigContainer = bigContainer
+    this.container = container
+    container.addEventListener('click', () => {
+      if (!container.classList.contains('shake-slow'))
+        return
+      container.classList.remove('shake-slow')
+      container.classList.add('shake-little')
+    })
     return bigContainer
   }
-  this.container = container
-  container.addEventListener('click', () => {
-    if (!container.classList.contains('shake-slow'))
-      return
-    container.classList.remove('shake-slow')
-    container.classList.add('shake-little')
-  })
-  return container
-  
+
   async postrender() {
     if (this.properties.messagetype === 'received') {
       if (this.properties.ping) {
@@ -170,7 +168,7 @@ class Message {
         this.container.style['margin-right'] = `${i}%`
         i++
       }
-      this.container.style['margin-right'] = `${i - 2}%`
+      this.container.style['margin-right'] = `${i - 12}%`
     } else if (this.properties.messagetype === 'sent') {
       let i = 40
       this.container.style['margin-left'] = `${i}%`
