@@ -104,4 +104,9 @@ socket.on('messageevent', data => {
   } else {
     label.textContent = parseInt(label.textContent) - 1
   }
+  if (label.textContent === '0') {
+    label.classList.add('hidden')
+  } else {
+    label.classList.remove('hidden')
+  }
 })

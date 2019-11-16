@@ -69,6 +69,11 @@ class Message {
       const reactCount = document.createElement('span')
       container.appendChild(reactCount)
       reactCount.textContent = '0'
+      if (reactCount.textContent === '0') {
+        reactCount.classList.add('hidden')
+      } else {
+        reactCount.classList.remove('hidden')
+      }
       reactButton.classList.add('msg-button')
       reactButton.classList.add('reaction')
       reactButton.addEventListener('click', () => {
@@ -86,6 +91,11 @@ class Message {
           })
           reactButton.classList.remove('filled')
           reactCount.textContent = parseInt(reactCount.textContent) - 1
+        }
+        if (reactCount.textContent === '0') {
+          reactCount.classList.add('hidden')
+        } else {
+          reactCount.classList.remove('hidden')
         }
       })
       const button = document.createElement('button')
