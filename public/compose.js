@@ -126,6 +126,12 @@ function parseCommands(message) {
       message.properties.message = message.properties.message.join(' ')
       return
     }
+    if (message.properties.message.split(' ')[0] === '!flip') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.flip = true
+      message.properties.message = message.properties.message.join(' ')
+      return
   }
 }
 

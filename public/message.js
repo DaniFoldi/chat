@@ -44,6 +44,9 @@ class Message {
     if (this.properties.lmgtfy) {
       container.classList.add('message-large')
     }
+    if (this.properties.flip) {
+      container.classList.add('message-flip')
+    }
     container.innerHTML = this.properties.displayed
     container.appendChild(timestamp)
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
