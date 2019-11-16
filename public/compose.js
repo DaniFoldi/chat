@@ -133,6 +133,13 @@ function parseCommands(message) {
       message.properties.message = message.properties.message.join(' ')
       return
     }
+    if (message.properties.message.split(' ')[0] === '!tts') {
+     message.properties.message = message.properties.message.split(' ')
+     message.properties.message.shift()
+     message.properties.tts = true
+     message.properties.message = message.properties.message.join(' ')
+      return
+    }
   }
 }
 
