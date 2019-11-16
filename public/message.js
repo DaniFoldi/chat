@@ -14,7 +14,8 @@ class Message {
   render() {
     const bigContainer = document.createElement('div')
     bigContainer.classList.add('message')
-    //bigContainer.style['background-color'] = '#FFDC00'
+    bigContainer.style['padding'] = '0px'
+    bigContainer.style['margin'] = '0px'
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
@@ -22,12 +23,15 @@ class Message {
       container.classList.add('message-emoji')
     }
     container.innerHTML = this.properties.displayed
-    //container.style['left'] = '60px'
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
 
-      const original = document.createElement('b')
-      original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
-      container.prepend(original, container.firstChild)
+      const original = document.createElement('i')
+      if(this.properties.messagetype === 'sent') {
+        original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
+      }else if(this.properties.messagetype === 'received'){
+        original.textContent = `${this.properties.user} replies to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
+      }
+      container.prepend(original)
     }
     if (this.properties.messagetype !== 'special') {
       const button = document.createElement('button')
@@ -43,7 +47,7 @@ class Message {
         document.querySelectorAll('.message-replying').forEach((el, i) => {
           el.classList.remove('message-replying')
         })
-        this.container.classList.add('message-replying')
+        container.classList.add('message-replying')
         document.getElementById("input").focus()
       })
       if (this.properties.messagetype === 'sent') {
@@ -55,15 +59,17 @@ class Message {
           this.delete()
           socket.emit('delete', this.properties)
         })
+        container.style['align'] = 'right'
       }
     }
     if (this.properties.messagetype === 'received') {
       //socket.emit('user',
       //  {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
       //)
-      const senderName = document.createElement('b')
-      senderName.textContent = `feladó: ${this.properties.user} `
-      bigContainer.prepend(senderName)
+      if (typeof this.properties.replyuser == 'undefined' && typeof this.properties.replymessage == 'undefined') {const senderName = document.createElement('i')
+      senderName.textContent = `${this.properties.user}`
+      senderName.style['left'] = '60px'
+      bigContainer.prepend(senderName)}
       let profil = document.createElement('IMG')
       bigContainer.appendChild(profil)
       profil.src='https://scontent-vie1-1.xx.fbcdn.net/v/t31.0-8/p960x960/12976728_129746087426668_8421938268686210730_o.jpg?_nc_cat=108&_nc_oc=AQkoaRPDQR24ypMXzR2Og0fb-l5jQIKhxIOdrGij2QE97BexCzsEvnNYc6KPvoSuhvsThlIl8Z6-by0p6lKwKXyW&_nc_ht=scontent-vie1-1.xx&oh=dafb6142d9a48eb4733fcac65bac3809&oe=5E5342C0'
@@ -107,7 +113,7 @@ class Message {
     }
   }
   async postrender() {
-    /*const maxmargin = this.bigContainer.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove //this part
+    const maxmargin = this.bigContainer.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove //this part
     if (this.properties.messagetype === 'received') {
       let i = 40
       this.bigContainer.style['margin-right'] = `${i}%`
@@ -126,7 +132,8 @@ class Message {
         i++
       }
       this.bigContainer.style['margin-left'] = `${i - 2}%`
-    }*/
+      this.container.style['width'] = this.bigContainer.style['width']
+    }
     document.getElementById('messages').scroll({
       behavior: 'smooth',
       top: this.bigContainer.offsetTop,
@@ -148,7 +155,6 @@ class Message {
       this.container.parentNode.removeChild(this.container)
     messages.splice(messages.indexOf(this), 1)
   }
-
 
   static received(properties) {
     properties.messagetype = 'received'
