@@ -12,7 +12,7 @@ function  createNewConversation(){
     <form>
       <input type="text" id="username" placeholder="Usernames">
       <button id="Create">Create chat</button>
-      <p></p>
+      <p>usernameList</p>
     </form>`
     document.querySelector('#createChatpopup-content form').addEventListener('submit', async event => {
       usernameList.push(document.getElementById('username').split(", "))
