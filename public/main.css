@@ -143,8 +143,8 @@ html {
   -webkit-user-select: auto;
 }
 
-.message-flip {
-  transform: scaleX(-1);
+.message-content.message-flip {
+  transform: scaleY(-1);
 }
 
 kbd {

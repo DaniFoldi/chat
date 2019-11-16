@@ -45,9 +45,12 @@ class Message {
       container.classList.add('message-large')
     }
     if (this.properties.flip) {
-      container.classList.add('message-flip')
+      container.getElementsByClassName('message-content')[0].classList.add('message-flip')
     }
-    container.innerHTML = this.properties.displayed
+    const messageContainer = document.createElement('div')
+    container.appendChild(messageContainer)
+    messageContainer.classList.add('message-content')
+    messageContainer.innerHTML = this.properties.displayed
     container.appendChild(timestamp)
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
       const original = document.createElement('p')
