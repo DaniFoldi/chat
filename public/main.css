@@ -41,8 +41,10 @@ html {
 #title {
   grid-area: title;
   background: #3D9970;
+  text-align: center;
   margin: 0px;
   padding: 20px;
+  border-bottom: 1px solid #111111;
 }
 
 #sidebar {
@@ -57,10 +59,26 @@ html {
   display: none;
 }
 
-#sidebar > .title {
-  height: 50px;
-  font-size: 14px;
-  position: sticky;
+#createChatpopup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(50,50,50,.6);
+  z-index: 10;
+}
+
+#createChatpopup.shown {
+  display: block;
+}
+
+#createChatpopup-content {
+  margin: 30vh 30vw;
+  height: 40vh;
+  width: 40vw;
+  border-radius: 10px;
 }
 
 #messages {
@@ -153,6 +171,14 @@ html {
 
 .msg-button {
   visibility: hidden;
+}
+.chat-button {
+  visibility: visible;
+  display: block;
+  margin: 4px;
+  border-radius: 5px;
+  padding: 8px;
+  height: 43px;
 }
 
 .message:hover > .msg-button {
