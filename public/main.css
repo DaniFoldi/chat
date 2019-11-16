@@ -217,3 +217,39 @@ kbd {
 .hidden {
   visibility: hidden;
 }
+
+.md-colorify--red {
+  color: red;
+}
+
+.md-colorify--pink {
+  color: pink;
+}
+
+.md-colorify--blue {
+  color: blue;
+}
+
+.md-colorify--orange {
+  color: orange;
+}
+
+.md-colorify--green {
+  color: green;
+}
+
+.md-colorify--yellow {
+  color: yellow;
+}
+
+.md-colorify--purple {
+  color: purple;
+}
+
+.md-colorify--white {
+  color: white;
+}
+
+.md-colorify--transparent {
+  color: transparent;
+}
