@@ -111,3 +111,8 @@ socket.on('messageevent', data => {
     label.classList.remove('hidden')
   }
 })
+
+setInterval(() => {
+  for (let message of messages)
+    message.updateTime()
+}, 50)

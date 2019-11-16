@@ -3,9 +3,8 @@ class Message {
     this.properties = properties
     if (typeof this.properties.identifier === 'undefined')
       this.properties.identifier = uuid()
-    if (typeof this.properties.timestamp === 'undefined') {
-      this.properties.timestamp = (new Date()).toString().split(' ', 5)
-    }
+    if (typeof this.properties.timestamp === 'undefined')
+      this.properties.timestamp = new Date()
   }
   preprocess() {
     this.properties.displayed = this.properties.message
@@ -32,12 +31,7 @@ class Message {
     container.classList.add('message-' + this.properties.messagetype)
     const timestamp = document.createElement('p')
     timestamp.classList.add('timestamp')
-    const currentDate = (new Date()).toString().split(' ', 5)
-    if (this.properties.timestamp[1] === currentDate[1] && this.properties.timestamp[2] === currentDate[2] && this.properties.timestamp[3] === currentDate[3]) {
-      timestamp.textContent = currentDate[4]
-    } else {
-      timestamp.textContent = currentDate.join(' ')
-    }
+    container.appendChild(timestamp)
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
@@ -51,7 +45,6 @@ class Message {
     if (this.properties.flip) {
       container.getElementsByClassName('message-content')[0].classList.add('message-flip')
     }
-    container.appendChild(timestamp)
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
       const original = document.createElement('p')
       original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
@@ -132,6 +125,7 @@ class Message {
       container.classList.remove('shake-slow')
       container.classList.add('shake-little')
     })
+    this.updateTime()
     return container
   }
   async postrender() {
@@ -178,6 +172,15 @@ class Message {
       const article = document.createElement('article')
       article.innerHTML = data.content
       this.container.appendChild(article)
+    }
+  }
+
+  updateTime() {
+    const diff = timediff(this.properties.timestamp, new Date(), {
+      returnZeros: false
+    })
+    if (typeof diff.seconds !== 'undefined' && this.container.getElementsByClassName('timestamp')[0].textContent !== pluralize(Object.keys(diff)[0], diff[Object.keys(diff)[0]], true) + ' ago') {
+      this.container.getElementsByClassName('timestamp')[0].textContent = pluralize(Object.keys(diff)[0], diff[Object.keys(diff)[0]], true) + ' ago'
     }
   }
 
