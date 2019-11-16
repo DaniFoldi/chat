@@ -9,8 +9,30 @@ html {
 #main {
   display: grid;
   height: 100vh;
-  grid-template: '. messages messages .' 1fr '. input send .' auto / 1fr minmax(400px, 50vw) 50px 1fr;
+  grid-template: '. messages messages messages .' 1fr '. timing input send .' auto / 1fr 70px minmax(400px, 50vw) 50px 1fr;
   place-items: stretch stretch;
+}
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(50,50,50,.6);
+  z-index: 10;
+}
+
+#popup.shown {
+  display: block;
+}
+
+#popup-content {
+  margin: 30vh 30vw;
+  height: 40vh;
+  width: 40vw;
+  border-radius: 10px;
 }
 
 #messages {
@@ -59,6 +81,11 @@ html {
   word-wrap: break-word;
 }
 
+.message .timestamp {
+  font-size: 10px;
+  font-style: italic;
+}
+
 .message blockquote {
   margin: -2px 0;
   border-left: 3px black solid;
@@ -74,6 +101,10 @@ html {
 .message-received {
   background: #C43884;
   color: white;
+}
+
+.message-replying {
+  animation: highlightmessage infinite ease-in-out 2.5s;
 }
 
 .message-other blockquote {
@@ -97,6 +128,59 @@ html {
   font-size: 30px;
 }
 
+.spoiler {
+  padding: 3px;
+  border-radius: 2px;
+  background: gray;
+  color: gray;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.spoiler:hover {
+  color: white;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+.message-content.message-flip {
+  transform: scaleY(-1);
+}
+
+kbd {
+  padding: 4px 6px;
+  border-radius: 2px;
+  background: white;
+  color: #333;
+  margin: 1px;
+  text-transform: uppercase;
+}
+
+.lmgtfy,
+.message-large {
+  min-width: 40vw;
+  min-height: 40vh;
+}
+
+.msg-button {
+  visibility: hidden;
+}
+
+.message:hover > .msg-button {
+  visibility: visible;
+}
+
+.msg-button.reaction {
+  background: url('images/heart_empty.svg') no-repeat;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.msg-button.reaction.filled {
+  background: url('images/heart_filled.svg') no-repeat;
+}
+
 #send {
   grid-area: send;
   border: none;
@@ -105,6 +189,67 @@ html {
   background: #CDCDCD;
 }
 
+#timing {
+  grid-area: timing;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  margin: 4px 0;
+  background: #CDCDCD;
+}
+
 #send:disabled {
   background: #EAEAEA;
+}
+@keyframes highlightmessage {
+  from {
+    box-shadow: 0 0 10px 0 #AAA;
+  }
+
+  50% {
+    box-shadow: 0 0 10px 5px #AAA;
+  }
+
+  to {
+    box-shadow: 0 0 10px 0 #AAA;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.md-colorify--red {
+  color: red;
+}
+
+.md-colorify--pink {
+  color: pink;
+}
+
+.md-colorify--blue {
+  color: blue;
+}
+
+.md-colorify--orange {
+  color: orange;
+}
+
+.md-colorify--green {
+  color: green;
+}
+
+.md-colorify--yellow {
+  color: yellow;
+}
+
+.md-colorify--purple {
+  color: purple;
+}
+
+.md-colorify--white {
+  color: white;
+}
+
+.md-colorify--transparent {
+  color: transparent;
 }
