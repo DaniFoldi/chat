@@ -3,11 +3,26 @@ class Message {
     this.properties = properties
     if (typeof this.properties.identifier === 'undefined')
       this.properties.identifier = uuid()
+    if (typeof this.properties.timestamp === 'undefined') {
+      this.properties.timestamp = (new Date()).toString().split(' ', 5)
+    }
   }
   preprocess() {
-    this.parseCommand()
     this.properties.displayed = this.properties.message
     this.properties.displayed = this.properties.displayed.replace(/\n/g, '\n\n')
+    if (this.properties.lmgtfy) {
+      this.properties.displayed = `<iframe class='lmgtfy' src='https://lmgtfy.com/?q=${this.properties.message}'></iframe>`
+      return
+    }
+    if (this.properties.zalgo) {
+      this.properties.displayed = zalgo(this.properties.displayed)
+      console.log(this.properties.displayed)
+      return
+    }
+    if (this.properties.glitch) {
+      this.properties.displayed = glitch(this.properties.displayed)
+      return
+    }
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
@@ -19,10 +34,25 @@ class Message {
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
-        if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
+    const timestamp = document.createElement('p')
+    timestamp.classList.add('timestamp')
+    const currentDate = (new Date()).toString().split(' ', 5)
+    if (this.properties.timestamp[1] === currentDate[1] && this.properties.timestamp[2] === currentDate[2] && this.properties.timestamp[3] === currentDate[3]) {
+      timestamp.textContent = currentDate[4]
+    } else {
+      timestamp.textContent = currentDate.join(' ')
+    }
+    if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
+    if (this.properties.lmgtfy) {
+      container.classList.add('message-large')
+    }
+    if (this.properties.flip) {
+      container.classList.add('message-flip')
+    }
     container.innerHTML = this.properties.displayed
+    container.appendChild(timestamp)
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
 
       const original = document.createElement('i')
@@ -33,7 +63,37 @@ class Message {
       }
       container.prepend(original)
     }
+    if (this.properties.shake) {
+      container.classList.add('shake')
+      container.classList.add('shake-constant')
+      container.classList.add('shake-constant--hover')
+      container.classList.add('shake-slow')
+    }
     if (this.properties.messagetype !== 'special') {
+      const reactButton = document.createElement('button')
+      container.appendChild(reactButton)
+      const reactCount = document.createElement('span')
+      container.appendChild(reactCount)
+      reactCount.textContent = '0'
+      reactButton.classList.add('msg-button')
+      reactButton.classList.add('reaction')
+      reactButton.addEventListener('click', () => {
+        if (!reactButton.classList.contains('filled')) {
+          socket.emit('messageevent', {
+            type: 'react',
+            identifier: this.properties.identifier
+          })
+          reactButton.classList.add('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) + 1
+        } else {
+          socket.emit('messageevent', {
+            type: 'unreact',
+            identifier: this.properties.identifier
+          })
+          reactButton.classList.remove('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) - 1
+        }
+      })
       const button = document.createElement('button')
       container.appendChild(button)
       button.textContent = 'Reply'
@@ -80,41 +140,47 @@ class Message {
     this.bigContainer = bigContainer
     return bigContainer
   }
-  parseCommand() {
-    if (this.properties.message[0] === "!") {
-      if (this.properties.message.split(' ')[0] === '!shrug') {
-        this.properties.message = this.properties.message.split(' ')
-        this.properties.message.shift()
-        this.properties.message.push('¯\\_(ツ)_/¯')
-        this.properties.message = this.properties.message.join(' ')
+  this.container = container
+  container.addEventListener('click', () => {
+    if (!container.classList.contains('shake-slow'))
+      return
+    container.classList.remove('shake-slow')
+    container.classList.add('shake-little')
+  })
+  return container
+  
+  async postrender() {
+    if (this.properties.messagetype === 'received') {
+      if (this.properties.ping) {
+        playSound(soundEffects.bell)
       }
-      if (this.properties.message.split(' ')[0] === '!lenny') {
-        this.properties.message = this.properties.message.split(' ')
-        this.properties.message.shift()
-        this.properties.message.push('( ͡° ͜ʖ ͡°)')
-        this.properties.message = this.properties.message.join(' ')
+      if (this.properties.meow) {
+        playSound(soundEffects.meow)
       }
-      if (this.properties.message.split(' ')[0] === '!uwu') {
-        this.properties.message = this.properties.message.split(' ')
-        this.properties.message.shift()
-        this.properties.message.push('(ᵘﻌᵘ)')
-        this.properties.message = this.properties.message.join(' ')
-      }
-      if (this.properties.message.split(' ')[0] === '!tableflip') {
-        this.properties.message = this.properties.message.split(' ')
-        this.properties.message.shift()
-        this.properties.message.push('(╯°□°)╯︵ ┻━┻')
-        this.properties.message = this.properties.message.join(' ')
-      }
-      if (this.properties.message.split(' ')[0] === '!unflip') {
-        this.properties.message = this.properties.message.split(' ')
-        this.properties.message.shift()
-        this.properties.message.push('┬─┬ ノ( ゜-゜ノ)')
-        this.properties.message = this.properties.message.join(' ')
+      if (this.properties.badumtss) {
+        playSound(soundEffects.badumtss)
       }
     }
-  }
-  async postrender() {
+    const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
+    if (this.properties.messagetype === 'received') {
+      let i = 40
+      this.container.style['margin-right'] = `${i}%`
+      const originalHeight = this.container.offsetHeight
+      while (this.container.offsetHeight === originalHeight && i < maxmargin) {
+        this.container.style['margin-right'] = `${i}%`
+        i++
+      }
+      this.container.style['margin-right'] = `${i - 2}%`
+    } else if (this.properties.messagetype === 'sent') {
+      let i = 40
+      this.container.style['margin-left'] = `${i}%`
+      const originalHeight = this.container.offsetHeight
+      while (this.container.offsetHeight === originalHeight && i < maxmargin) {
+        this.container.style['margin-left'] = `${i}%`
+        i++
+      }
+      this.container.style['margin-left'] = `${i - 2}%`
+    }
     document.getElementById('messages').scroll({
       behavior: 'smooth',
       top: this.bigContainer.offsetTop,
@@ -122,7 +188,6 @@ class Message {
     })
     const links = linkify.find(this.properties.message).filter((el => el.type === 'url'))
     for (let link of links) {
-      console.log(link)
       const raw = await fetch(`api/tools/article-parser?url=${encodeURIComponent(link.href)}`)
       const data = await raw.json()
       const article = document.createElement('article')

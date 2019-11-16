@@ -4,9 +4,22 @@ const md = markdownit({
   linkify: true,
   typographer: true
 })
+md.use(markdownitSpoiler)
 md.use(markdownitSup)
 md.use(markdownitSub)
 md.use(markdownitEmoji)
+md.use(markdownitKbd)
+md.use(md => {
+  const temp = md.renderer.rules.fence.bind(md.renderer.rules)
+  md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+    const token = tokens[idx]
+    const code = token.content.trim()
+    if (token.info.length > 0) {
+      return `<pre><code class="hljs">${hljs.highlightAuto(code, [token.info]).value}</code></pre>`
+    }
+    return temp(tokens, idx, options, env, slf)
+  }
+})
 md.renderer.rules.emoji = (token, idx) => {
   return twemoji.parse(token[idx].content)
 }
@@ -81,4 +94,14 @@ socket.on('delete', identifier => {
   const message = messages.filter(el => el.properties.identifier === identifier)[0]
   if (typeof message !== 'undefined')
     message.delete()
+})
+
+socket.on('messageevent', data => {
+  const message = messages.filter(el => el.properties.identifier === data.identifier)[0]
+  const label = message.container.getElementsByTagName('span')[0]
+  if (data.type === 'react') {
+    label.textContent = parseInt(label.textContent) + 1
+  } else {
+    label.textContent = parseInt(label.textContent) - 1
+  }
 })

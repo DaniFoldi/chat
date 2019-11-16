@@ -105,6 +105,10 @@ html {
   position: relative;
 }
 
+.message .timestamp {
+  font-size: 10px;
+  font-style: italic;
+
 .message blockquote {
   margin: -2px 0;
   border-left: 3px black solid;
@@ -147,12 +151,57 @@ html {
   font-size: 30px;
 }
 
+.spoiler {
+  padding: 3px;
+  border-radius: 2px;
+  background: gray;
+  color: gray;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.spoiler:hover {
+  color: white;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+.message-flip {
+  transform: scaleX(-1);
+}
+
+kbd {
+  padding: 4px 6px;
+  border-radius: 2px;
+  background: white;
+  color: #333;
+  margin: 1px;
+  text-transform: uppercase;
+}
+
+.lmgtfy,
+.message-large {
+  min-width: 40vw;
+  min-height: 40vh;
+}
+
 .msg-button {
   visibility: hidden;
 }
 
 .message:hover > .msg-button {
   visibility: visible;
+}
+
+.msg-button.reaction {
+  background: url('images/heart_empty.svg') no-repeat;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.msg-button.reaction.filled {
+  background: url('images/heart_filled.svg') no-repeat;
 }
 
 #send {
