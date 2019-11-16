@@ -129,6 +129,10 @@ class Message {
     return container
   }
   async postrender() {
+    if (this.properties.tts) {
+      const tts = new SpeechSynthesisUtterance(this.properties.message)
+      speechSynthesis.speak(tts)
+    }
     if (this.properties.messagetype === 'received') {
       if (this.properties.ping) {
         playSound(soundEffects.bell)
