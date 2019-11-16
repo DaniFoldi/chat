@@ -53,7 +53,7 @@ html {
   z-index: 10;
 }
 
-#CreateChatpopup.shown {
+#createChatpopup.shown {
   display: block;
 }
 
