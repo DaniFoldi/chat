@@ -25,6 +25,8 @@ md.renderer.rules.emoji = (token, idx) => {
   return twemoji.parse(token[idx].content)
 }
 
+let autocomplete = {'OMG':'Oh my god', 'IDK':'I don\'t know', 'ILY':'I love you'}
+let emojireplacements = {}
 const messages = []
 let replymessage = {}
 
