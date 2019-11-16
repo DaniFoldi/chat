@@ -1,7 +1,8 @@
 createNewConversation()
-function  createNewConversation(){
+
+function createNewConversation() {
   const button = document.getElementById('createChat')
-  button.textContent =  'Create new chat'
+  button.textContent = 'Create new chat'
   button.classList.add('chat-button')
   button.addEventListener('click', () => {
     document.getElementById('createChatpopup').classList.add('shown')
@@ -13,8 +14,7 @@ function  createNewConversation(){
     </form>`
     document.querySelector('#createChatpopup-content form').addEventListener('submit', async event => {
       event.preventDefault()
-      let usernameList = document.getElementById('usernames').value.split(' ')
-      console.log(usernameList)
+      let usernameList = document.getElementById('usernames').value.split(/[ ,]+/gi)
       document.getElementById('members').innerHTML = usernameList.join(", ")
     })
   })
