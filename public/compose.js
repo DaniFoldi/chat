@@ -132,6 +132,7 @@ function parseCommands(message) {
       message.properties.flip = true
       message.properties.message = message.properties.message.join(' ')
       return
+    }
   }
 }
 
