@@ -59,20 +59,22 @@ class Message {
           this.delete()
           socket.emit('delete', this.properties)
         })
-        container.style['align'] = 'right'
       }
     }
     if (this.properties.messagetype === 'received') {
+      this.properties.user = 'Not undefined anymore, altought still not working'
       //socket.emit('user',
       //  {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
       //)
       if (typeof this.properties.replyuser == 'undefined' && typeof this.properties.replymessage == 'undefined') {const senderName = document.createElement('i')
       senderName.textContent = `${this.properties.user}`
       senderName.style['left'] = '60px'
+      senderName.style['top'] = '14px'
       bigContainer.prepend(senderName)}
-      let profil = document.createElement('IMG')
-      bigContainer.appendChild(profil)
-      profil.src='https://scontent-vie1-1.xx.fbcdn.net/v/t31.0-8/p960x960/12976728_129746087426668_8421938268686210730_o.jpg?_nc_cat=108&_nc_oc=AQkoaRPDQR24ypMXzR2Og0fb-l5jQIKhxIOdrGij2QE97BexCzsEvnNYc6KPvoSuhvsThlIl8Z6-by0p6lKwKXyW&_nc_ht=scontent-vie1-1.xx&oh=dafb6142d9a48eb4733fcac65bac3809&oe=5E5342C0'
+      let profile = document.createElement('IMG')
+      bigContainer.appendChild(profile)
+      profile.style['top'] = '14px'
+      profile.src='https://scontent-vie1-1.xx.fbcdn.net/v/t31.0-8/p960x960/12976728_129746087426668_8421938268686210730_o.jpg?_nc_cat=108&_nc_oc=AQkoaRPDQR24ypMXzR2Og0fb-l5jQIKhxIOdrGij2QE97BexCzsEvnNYc6KPvoSuhvsThlIl8Z6-by0p6lKwKXyW&_nc_ht=scontent-vie1-1.xx&oh=dafb6142d9a48eb4733fcac65bac3809&oe=5E5342C0'
     }
     bigContainer.appendChild(container)
     this.bigContainer = bigContainer
@@ -113,27 +115,6 @@ class Message {
     }
   }
   async postrender() {
-    const maxmargin = this.bigContainer.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove //this part
-    if (this.properties.messagetype === 'received') {
-      let i = 40
-      this.bigContainer.style['margin-right'] = `${i}%`
-      const originalHeight = this.bigContainer.offsetHeight
-      while (this.bigContainer.offsetHeight === originalHeight && i < maxmargin) {
-        this.bigContainer.style['margin-right'] = `${i}%`
-        i++
-      }
-      this.bigContainer.style['margin-right'] = `${i - 2}%`
-    } else if (this.properties.messagetype === 'sent') {
-      let i = 40
-      this.bigContainer.style['margin-left'] = `${i}%`
-      const originalHeight = this.bigContainer.offsetHeight
-      while (this.bigContainer.offsetHeight === originalHeight && i < maxmargin) {
-        this.bigContainer.style['margin-left'] = `${i}%`
-        i++
-      }
-      this.bigContainer.style['margin-left'] = `${i - 2}%`
-      this.container.style['width'] = this.bigContainer.style['width']
-    }
     document.getElementById('messages').scroll({
       behavior: 'smooth',
       top: this.bigContainer.offsetTop,

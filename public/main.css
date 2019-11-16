@@ -102,6 +102,7 @@ html {
   height: 50px;
   margin: 5px;
   padding: 0px;
+  position: relative;
 }
 
 .message blockquote {
