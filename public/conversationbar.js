@@ -1,9 +1,6 @@
 createNewConversation()
 function  createNewConversation(){
-  let usernameList = []
-  const container = document.getElementById('sidebar')
-  const button = document.createElement('button')
-  container.appendChild(button)
+  const button = document.getElementById('createChat')
   button.textContent =  'Create new chat'
   button.classList.add('chat-button')
   button.addEventListener('click', () => {
@@ -12,13 +9,12 @@ function  createNewConversation(){
     <form>
       <input type="text" id="username" placeholder="Usernames">
       <button id="Create">Create chat</button>
-      <p>usernameList</p>
+      <p id="members"></p>
     </form>`
     document.querySelector('#createChatpopup-content form').addEventListener('submit', async event => {
-      usernameList.push(document.getElementById('username').split(", "))
-      console.log(usernameList);
-      getIdentifier()
+      event.preventDefault()
+      let usernameList = document.getElementById('username').innerHTML.split(", ")
+      document.getElementById('members').innerHTML = usernameList.join(", ")
     })
   })
-  document.getElementById('createChatpopup').classList.remove('shown')
 }

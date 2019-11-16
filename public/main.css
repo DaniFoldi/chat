@@ -75,6 +75,7 @@ html {
 }
 
 #createChatpopup-content {
+  background: #3D9970;
   margin: 30vh 30vw;
   height: 40vh;
   width: 40vw;
@@ -175,8 +176,9 @@ html {
 .chat-button {
   visibility: visible;
   display: block;
+  background: #DDDDDD;
   margin: 4px;
-  border-radius: 5px;
+  border: none;
   padding: 8px;
   height: 43px;
 }
