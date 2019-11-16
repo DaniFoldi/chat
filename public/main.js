@@ -3,6 +3,8 @@ const md = markdownit({
   linkify: true
 })
 
+let autocomplete = {'OMG':'Oh my god', 'IDK':'I don\'t know', 'ILY':'I love you'}
+
 let emojireplacements = {}
 const messages = []
 

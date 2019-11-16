@@ -5,6 +5,10 @@ class Message {
       this.properties.identifier = uuid()
   }
   preprocess() {
+    console.log(autocomplete)
+    for (let replacement in autocomplete) {
+      this.properties.message = this.properties.message.replace(new RegExp(replacement, 'gi'), autocomplete[replacement])
+    }
     this.properties.displayed = this.properties.message
     for (let keyword in emojireplacements) {
       this.properties.displayed = this.properties.displayed.replace(new RegExp(keyword, 'g'), emojireplacements[keyword])
@@ -20,6 +24,7 @@ class Message {
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
+
     container.innerHTML = this.properties.displayed
     this.container = container
     return container
