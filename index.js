@@ -80,6 +80,7 @@ socket.on('connection', async socket => {
         const loginData = await dbHandler.login(data.username, data.password)
         const loginSessionid = uuid()
         callback({
+          userid: loginData.identifier,
           sessionid: loginSessionid
         })
         sessions[loginSessionid] = loginData.identifier
@@ -88,13 +89,14 @@ socket.on('connection', async socket => {
         const signupData = await dbHandler.signup(data.username, data.email, data.password)
         const signupSessionid = uuid()
         callback({
+          userid: signupData.identifier,
           sessionid: signupSessionid
         })
         sessions[signupSessionid] = signupData.identifier
         break
       case 'token':
         callback({
-          authenticated: typeof sessions[data.sessionid] !== 'undefined'
+          authenticated: typeof sessions[data.sessionid] !== 'undefined' && sessions[data.sessionid] === data.userid
         })
         break
       case 'getinfo':

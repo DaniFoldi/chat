@@ -48,7 +48,8 @@ socket.on('connect', () => {
   }
   socket.emit('user', {
     type: 'token',
-    sessionid: getSessionid()
+    sessionid: getData().sessionid,
+    userid: getData().userid
   }, data => {
     if (!data.authenticated) {
       showpopup('login')
