@@ -6,8 +6,8 @@ class Message {
     if (typeof this.properties.timestamp === 'undefined')
       this.properties.timestamp = new Date()
   }
+
   preprocess() {
-    console.log(autocomplete)
     for (let replacement in autocomplete) {
       this.properties.message = this.properties.message.replace(new RegExp(replacement, 'gi'), autocomplete[replacement])
     }
@@ -29,17 +29,14 @@ class Message {
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
+
   render() {
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
-    const timestamp = document.createElement('p')
-    timestamp.classList.add('timestamp')
-    container.appendChild(timestamp)
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
-    container.innerHTML = this.properties.displayed
     if (this.properties.lmgtfy) {
       container.classList.add('message-large')
     }
@@ -47,6 +44,9 @@ class Message {
     container.appendChild(messageContainer)
     messageContainer.classList.add('message-content')
     messageContainer.innerHTML = this.properties.displayed
+    const timestamp = document.createElement('p')
+    timestamp.classList.add('timestamp')
+    container.appendChild(timestamp)
     if (this.properties.flip) {
       container.getElementsByClassName('message-content')[0].classList.add('message-flip')
     }
@@ -133,6 +133,7 @@ class Message {
     this.updateTime()
     return container
   }
+
   async postrender() {
     if (this.properties.tts) {
       const tts = new SpeechSynthesisUtterance(this.properties.message)
