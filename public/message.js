@@ -5,6 +5,8 @@ class Message {
       this.properties.identifier = uuid()
     if (typeof this.properties.timestamp === 'undefined')
       this.properties.timestamp = new Date()
+    if (typeof this.properties.sender === 'undefined')
+      this.properties.sender = getData().userid
   }
 
   preprocess() {

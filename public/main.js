@@ -69,6 +69,9 @@ socket.on('disconnect', () => {
 
 socket.on('message', data => {
   const message = Message.received(data)
+  if (message.properties.sender === getData().userid) {
+    message.properties.messagetype = 'sent'
+  }
   messages.push(message)
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
