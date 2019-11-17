@@ -199,7 +199,6 @@ class Message {
     messages.splice(messages.indexOf(this), 1)
   }
 
-
   static received(properties) {
     properties.messagetype = 'received'
     return new Message(properties)

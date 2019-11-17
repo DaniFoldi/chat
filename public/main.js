@@ -10,22 +10,16 @@ md.use(markdownitSub)
 md.use(markdownitEmoji)
 md.use(markdownitKbd)
 md.use(window['markdown-it-color'].default)
-md.use(md => {
-  const temp = md.renderer.rules.fence.bind(md.renderer.rules)
-  md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
-    const token = tokens[idx]
-    const code = token.content.trim()
-    if (token.info.length > 0) {
-      return `<pre><code class="hljs">${hljs.highlightAuto(code, [token.info]).value}</code></pre>`
-    }
-    return temp(tokens, idx, options, env, slf)
-  }
-})
+md.use(markdownitPrismHighlight)
 md.renderer.rules.emoji = (token, idx) => {
   return twemoji.parse(token[idx].content)
 }
 
-let autocomplete = {'OMG':'Oh my god', 'IDK':'I don\'t know', 'ILY':'I love you'}
+let autocomplete = {
+  'OMG': 'Oh my god',
+  'IDK': 'I don\'t know',
+  'ILY': 'I love you'
+}
 let emojireplacements = {}
 const messages = []
 let replymessage = {}
