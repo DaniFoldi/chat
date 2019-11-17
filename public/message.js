@@ -21,7 +21,6 @@ class Message {
     }
     if (this.properties.zalgo) {
       this.properties.displayed = zalgo(this.properties.displayed)
-      console.log(this.properties.displayed)
       return
     }
     if (this.properties.glitch) {

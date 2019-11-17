@@ -59,4 +59,5 @@ function showpopup(popup) {
 
 function hidepopup() {
   document.getElementById('popup').classList.remove('shown')
+  document.getElementById('popup-content').innerHTML = ''
 }
