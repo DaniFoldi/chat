@@ -3,6 +3,12 @@ let session = './session'
 
 createNewConversation()
 
+while(true) {
+  for(let i = 1; i <=dbHandler.conversationsOfUsers(sessions[session.getSessionid()]); i++) {
+    createChatButtons(i)
+  }
+}
+
 function  createNewConversation(){
   const button = document.getElementById('createChat')
   button.textContent = 'Create new chat'
@@ -28,3 +34,8 @@ function  createNewConversation(){
     })
   })
 }
+
+function createChatButtons(buttonN) {
+  const buttonContainer = document.getElementById('sidebar')
+  const chatButton = document.createElement('Button-' + buttonN)
+  buttonContainer.appendChild(chatButton)
