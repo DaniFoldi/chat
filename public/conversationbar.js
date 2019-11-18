@@ -3,10 +3,8 @@ let session = './session'
 
 createNewConversation()
 
-while(true) {
-  for(let i = 1; i <=dbHandler.conversationsOfUsers(sessions[session.getSessionid()]); i++) {
-    createChatButtons(i)
-  }
+for(let i = 1; i <=dbHandler.conversationsOfUsers(sessions[session.getSessionid()]); i++) {
+  createChatButtons(i)
 }
 
 function  createNewConversation(){
