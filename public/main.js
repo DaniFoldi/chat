@@ -9,6 +9,9 @@ md.use(markdownitSup)
 md.use(markdownitSub)
 md.use(markdownitEmoji)
 md.use(markdownitKbd)
+md.use(markdownitCheckbox, {
+  disabled: false
+})
 md.use(window['markdown-it-color'].default)
 md.use(markdownitPrismHighlight)
 md.renderer.rules.emoji = (token, idx) => {
