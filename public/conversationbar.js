@@ -5,7 +5,7 @@ createNewConversation()
 
 function  createNewConversation(){
   const button = document.getElementById('createChat')
-  button.textContent =  'Create new chat'
+  button.textContent = 'Create new chat'
   button.classList.add('chat-button')
   button.addEventListener('click', () => {
     document.getElementById('createChatpopup').classList.add('shown')
