@@ -1,4 +1,8 @@
+let dbHandler ='./database'
+let session = './session'
+
 createNewConversation()
+
 function  createNewConversation(){
   const button = document.getElementById('createChat')
   button.textContent =  'Create new chat'
@@ -9,13 +13,18 @@ function  createNewConversation(){
     <form>
       <input type="text" id="usernames" placeholder="Usernames">
       <button id="Create">Create chat</button>
-      <p id="members"></p>
     </form>`
     document.querySelector('#createChatpopup-content form').addEventListener('submit', async event => {
       event.preventDefault()
-      let usernameList = document.getElementById('usernames').value.split(' ')
-      console.log(usernameList)
-      document.getElementById('members').innerHTML = usernameList.join(", ")
+      let usernameList = document.getElementById('usernames').value.split(/[ ,]+/gi)
+      let i = 0
+      let identifierList = []
+      while (i < usernameList.length  ) {
+        identifierList.push(database.getIdentifier(usernameList[i]))
+        i++
+      }
+      identifierList.push(sessions[session.getSessionid()])
+      dbHandler.newConversation(identifierList)
     })
   })
 }
