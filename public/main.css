@@ -76,6 +76,11 @@ html {
   position: relative;
 }
 
+.message.bigContainer {
+  margin: 0px;
+  padding: 0px;
+}
+
 .message a {
   color: inherit;
   font-weight: bold;
@@ -93,7 +98,6 @@ html {
   word-wrap: break-word;
   font-weight: italic;
   font-size: 14px;
-  left: 60px;
 }
 
 .message img {
@@ -102,6 +106,7 @@ html {
   height: 50px;
   margin: 5px;
   padding: 0px;
+  top: 14px;
   position: relative;
 }
 
@@ -201,8 +206,55 @@ kbd {
   border: none;
 }
 
-.msg-button.reaction.filled {
+.msg-button.reaction.filled { /*from: https://freeicons.io/ */
   background: url('images/heart_filled.svg') no-repeat;
+}
+
+.msg-button.reply {
+  background: url('images/reply.svg') no-repeat;
+  width: 30px;
+  height: 20px;
+  border: none;
+  position: relative;
+  left: 2px;
+  top: 3px;
+}
+
+.msg-button.delete {
+  background: url('images/delete.svg') no-repeat;
+  width: 20px;
+  height: 20px;
+  border: none;
+  position: relative;
+  top: 3px;
+}
+
+.msg-button.text{
+  visibility: hidden;
+  width: 60px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px;
+  position: absolute;
+  left: -30px;
+  z-index: 1;
+}
+
+.msg-button.delete:hover>.msg-button.text {
+  visibility: visible;
+}
+
+.msg-button.text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent gray transparent;
 }
 
 #send {

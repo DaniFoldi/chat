@@ -6,6 +6,9 @@ class Message {
     if (typeof this.properties.timestamp === 'undefined') {
       this.properties.timestamp = (new Date()).toString().split(' ', 5)
     }
+    if(typeof this.properties.user === 'undefined') {
+      this.properties.user = 'Not undefined! :)'
+    }
   }
   preprocess() {
     this.properties.displayed = this.properties.message
@@ -29,8 +32,7 @@ class Message {
   render() {
     const bigContainer = document.createElement('div')
     bigContainer.classList.add('message')
-    bigContainer.style['padding'] = '0px'
-    bigContainer.style['margin'] = '0px'
+    bigContainer.classList.add('bigContainer')
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
@@ -53,16 +55,6 @@ class Message {
     }
     container.innerHTML = this.properties.displayed
     container.appendChild(timestamp)
-    if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
-
-      const original = document.createElement('i')
-      if(this.properties.messagetype === 'sent') {
-        original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
-      }else if(this.properties.messagetype === 'received'){
-        original.textContent = `${this.properties.user} replies to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
-      }
-      container.prepend(original)
-    }
     if (this.properties.shake) {
       container.classList.add('shake')
       container.classList.add('shake-constant')
@@ -94,12 +86,18 @@ class Message {
           reactCount.textContent = parseInt(reactCount.textContent) - 1
         }
       })
-      const button = document.createElement('button')
-      container.appendChild(button)
-      button.textContent = 'Reply'
-      button.classList.add('msg-button')
+      const replyButton = document.createElement('button')
+      container.appendChild(replyButton)
+      replyButton.classList.add('msg-button')
+      replyButton.classList.add('reply')
+      const replyText = document.createElement('span')
+      replyButton.appendChild(replyText)
+      replyText.textContent = 'reply'
+      replyText.classList.add('msg-button')
+      replyText.classList.add('text')
 
-      button.addEventListener('click', () => {
+
+      replyButton.addEventListener('click', () => {
         replymessage = {
           user: 'aron',
           message: this.properties.message
@@ -110,11 +108,22 @@ class Message {
         container.classList.add('message-replying')
         document.getElementById("input").focus()
       })
+      if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
+        const original = document.createElement('i')
+        original.textContent = `Replying to ${this.properties.replyuser}'s message: `
+        container.prepend(original)
+      }
       if (this.properties.messagetype === 'sent') {
         const deleteButton = document.createElement('button')
-        container.appendChild(deleteButton)
-        deleteButton.textContent = 'Delete'
         deleteButton.classList.add('msg-button')
+        deleteButton.classList.add('delete')
+        container.appendChild(deleteButton)
+        const deleteText = document.createElement('span')
+        deleteButton.appendChild(deleteText)
+        deleteText.textContent = 'delete'
+        deleteText.classList.add('msg-button')
+        deleteText.classList.add('text')
+
         deleteButton.addEventListener('click', () => {
           this.delete()
           socket.emit('delete', this.properties)
@@ -122,18 +131,16 @@ class Message {
       }
     }
     if (this.properties.messagetype === 'received') {
-      this.properties.user = 'Not undefined anymore, altought still not working'
-      //socket.emit('user',
-      //  {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
-      //)
-      if (typeof this.properties.replyuser == 'undefined' && typeof this.properties.replymessage == 'undefined') {
+      /*socket.emit('user',
+        {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
+      )*/
       const senderName = document.createElement('i')
+      senderName.style['left'] = '60px'
       senderName.textContent = `${this.properties.user}`
-      bigContainer.prepend(senderName)}
+      bigContainer.prepend(senderName)
       let profile = document.createElement('IMG')
       bigContainer.appendChild(profile)
-      profile.style['top'] = '14px'
-      profile.src='https://scontent-vie1-1.xx.fbcdn.net/v/t31.0-8/p960x960/12976728_129746087426668_8421938268686210730_o.jpg?_nc_cat=108&_nc_oc=AQkoaRPDQR24ypMXzR2Og0fb-l5jQIKhxIOdrGij2QE97BexCzsEvnNYc6KPvoSuhvsThlIl8Z6-by0p6lKwKXyW&_nc_ht=scontent-vie1-1.xx&oh=dafb6142d9a48eb4733fcac65bac3809&oe=5E5342C0'
+      profile.src='https://www.nikonforums.com/forums/public/style_images/Nikon_Forums_Default/profile/default_large.png'
     }
     bigContainer.appendChild(container)
     this.bigContainer = bigContainer
@@ -159,26 +166,6 @@ class Message {
         playSound(soundEffects.badumtss)
       }
     }
-    const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
-    if (this.properties.messagetype === 'received') {
-      let i = 40
-      this.container.style['margin-right'] = `${i}%`
-      const originalHeight = this.container.offsetHeight
-      while (this.container.offsetHeight === originalHeight && i < maxmargin) {
-        this.container.style['margin-right'] = `${i}%`
-        i++
-      }
-      this.container.style['margin-right'] = `${i - 12}%`
-    } else if (this.properties.messagetype === 'sent') {
-      let i = 40
-      this.container.style['margin-left'] = `${i}%`
-      const originalHeight = this.container.offsetHeight
-      while (this.container.offsetHeight === originalHeight && i < maxmargin) {
-        this.container.style['margin-left'] = `${i}%`
-        i++
-      }
-      this.container.style['margin-left'] = `${i - 2}%`
-    }
     document.getElementById('messages').scroll({
       behavior: 'smooth',
       top: this.bigContainer.offsetTop,
@@ -196,7 +183,7 @@ class Message {
 
   delete() {
     if (this.container.parentNode)
-      this.container.parentNode.removeChild(this.container)
+      this.container.parentNode.removeChild(this.bigContainer)
     messages.splice(messages.indexOf(this), 1)
   }
 
