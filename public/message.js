@@ -3,14 +3,16 @@ class Message {
     this.properties = properties
     if (typeof this.properties.identifier === 'undefined')
       this.properties.identifier = uuid()
-    if (typeof this.properties.timestamp === 'undefined') {
-      this.properties.timestamp = (new Date()).toString().split(' ', 5)
-    }
-    if(typeof this.properties.user === 'undefined') {
-      this.properties.user = 'Not undefined! :)'
-    }
+    if (typeof this.properties.timestamp === 'undefined')
+      this.properties.timestamp = new Date()
+    if (typeof this.properties.sender === 'undefined')
+      this.properties.sender = getData().userid
   }
+
   preprocess() {
+    for (let replacement in autocomplete) {
+      this.properties.message = this.properties.message.replace(new RegExp(replacement, 'gi'), autocomplete[replacement])
+    }
     this.properties.displayed = this.properties.message
     this.properties.displayed = this.properties.displayed.replace(/\n/g, '\n\n')
     if (this.properties.lmgtfy) {
@@ -19,7 +21,6 @@ class Message {
     }
     if (this.properties.zalgo) {
       this.properties.displayed = zalgo(this.properties.displayed)
-      console.log(this.properties.displayed)
       return
     }
     if (this.properties.glitch) {
@@ -29,6 +30,7 @@ class Message {
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
+
   render() {
     const bigContainer = document.createElement('div')
     bigContainer.classList.add('message')
@@ -36,25 +38,22 @@ class Message {
     const container = document.createElement('div')
     container.classList.add('message')
     container.classList.add('message-' + this.properties.messagetype)
-    const timestamp = document.createElement('p')
-    timestamp.classList.add('timestamp')
-    const currentDate = (new Date()).toString().split(' ', 5)
-    if (this.properties.timestamp[1] === currentDate[1] && this.properties.timestamp[2] === currentDate[2] && this.properties.timestamp[3] === currentDate[3]) {
-      timestamp.textContent = currentDate[4]
-    } else {
-      timestamp.textContent = currentDate.join(' ')
-    }
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
     if (this.properties.lmgtfy) {
       container.classList.add('message-large')
     }
-    if (this.properties.flip) {
-      container.classList.add('message-flip')
-    }
-    container.innerHTML = this.properties.displayed
+    const messageContainer = document.createElement('div')
+    container.appendChild(messageContainer)
+    messageContainer.classList.add('message-content')
+    messageContainer.innerHTML = this.properties.displayed
+    const timestamp = document.createElement('p')
+    timestamp.classList.add('timestamp')
     container.appendChild(timestamp)
+    if (this.properties.flip) {
+      container.getElementsByClassName('message-content')[0].classList.add('message-flip')
+    }
     if (this.properties.shake) {
       container.classList.add('shake')
       container.classList.add('shake-constant')
@@ -67,6 +66,11 @@ class Message {
       const reactCount = document.createElement('span')
       container.appendChild(reactCount)
       reactCount.textContent = '0'
+      if (reactCount.textContent === '0') {
+        reactCount.classList.add('hidden')
+      } else {
+        reactCount.classList.remove('hidden')
+      }
       reactButton.classList.add('msg-button')
       reactButton.classList.add('reaction')
       reactButton.addEventListener('click', () => {
@@ -84,6 +88,11 @@ class Message {
           })
           reactButton.classList.remove('filled')
           reactCount.textContent = parseInt(reactCount.textContent) - 1
+        }
+        if (reactCount.textContent === '0') {
+          reactCount.classList.add('hidden')
+        } else {
+          reactCount.classList.remove('hidden')
         }
       })
       const replyButton = document.createElement('button')
@@ -110,7 +119,7 @@ class Message {
       })
       if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
         const original = document.createElement('i')
-        original.textContent = `Replying to ${this.properties.replyuser}'s message: `
+        original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
         container.prepend(original)
       }
       if (this.properties.messagetype === 'sent') {
@@ -136,7 +145,7 @@ class Message {
       )*/
       const senderName = document.createElement('i')
       senderName.style['left'] = '60px'
-      senderName.textContent = `${this.properties.user}`
+      senderName.textContent = `${this.properties.sender}`
       bigContainer.prepend(senderName)
       let profile = document.createElement('IMG')
       bigContainer.appendChild(profile)
@@ -151,10 +160,15 @@ class Message {
       container.classList.remove('shake-slow')
       container.classList.add('shake-little')
     })
+    this.updateTime()
     return bigContainer
   }
 
   async postrender() {
+    if (this.properties.tts) {
+      const tts = new SpeechSynthesisUtterance(this.properties.message)
+      speechSynthesis.speak(tts)
+    }
     if (this.properties.messagetype === 'received') {
       if (this.properties.ping) {
         playSound(soundEffects.bell)
@@ -178,6 +192,15 @@ class Message {
       const article = document.createElement('article')
       article.innerHTML = data.content
       this.container.appendChild(article)
+    }
+  }
+
+  updateTime() {
+    const diff = timediff(this.properties.timestamp, new Date(), {
+      returnZeros: false
+    })
+    if (typeof diff.seconds !== 'undefined' && this.container.getElementsByClassName('timestamp')[0].textContent !== pluralize(Object.keys(diff)[0], diff[Object.keys(diff)[0]], true) + ' ago') {
+      this.container.getElementsByClassName('timestamp')[0].textContent = pluralize(Object.keys(diff)[0], diff[Object.keys(diff)[0]], true) + ' ago'
     }
   }
 

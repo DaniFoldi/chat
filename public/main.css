@@ -172,8 +172,8 @@ html {
   -webkit-user-select: auto;
 }
 
-.message-flip {
-  transform: scaleX(-1);
+.message-content.message-flip {
+  transform: scaleY(-1);
 }
 
 kbd {
@@ -289,4 +289,44 @@ kbd {
   to {
     box-shadow: 0 0 10px 0 #AAA;
   }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.md-colorify--red {
+  color: red;
+}
+
+.md-colorify--pink {
+  color: pink;
+}
+
+.md-colorify--blue {
+  color: blue;
+}
+
+.md-colorify--orange {
+  color: orange;
+}
+
+.md-colorify--green {
+  color: green;
+}
+
+.md-colorify--yellow {
+  color: yellow;
+}
+
+.md-colorify--purple {
+  color: purple;
+}
+
+.md-colorify--white {
+  color: white;
+}
+
+.md-colorify--transparent {
+  color: transparent;
 }
