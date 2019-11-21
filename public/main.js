@@ -73,7 +73,7 @@ socket.on('disconnect', () => {
 socket.on('message', data => {
   const message = Message.received(data)
   if (message.properties.sender === getData().userid) {
-    message.properties.messagetype = 'sent'
+    message.properties.messagetype = 'received'
   }
   messages.push(message)
   message.preprocess()

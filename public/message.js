@@ -6,7 +6,8 @@ class Message {
     if (typeof this.properties.timestamp === 'undefined')
       this.properties.timestamp = new Date()
     if (typeof this.properties.sender === 'undefined')
-      this.properties.sender = getData().userid
+      //this.properties.sender = getData().userid
+      this.properties.sender = 'Aron'
   }
 
   preprocess() {
@@ -61,6 +62,7 @@ class Message {
       container.classList.add('shake-slow')
     }
     if (this.properties.messagetype !== 'special') {
+  //reaction button:
       const reactButton = document.createElement('button')
       container.appendChild(reactButton)
       const reactCount = document.createElement('span')
@@ -95,6 +97,7 @@ class Message {
           reactCount.classList.remove('hidden')
         }
       })
+  //reply button
       const replyButton = document.createElement('button')
       container.appendChild(replyButton)
       replyButton.classList.add('msg-button')
@@ -104,7 +107,6 @@ class Message {
       replyText.textContent = 'reply'
       replyText.classList.add('msg-button')
       replyText.classList.add('text')
-
 
       replyButton.addEventListener('click', () => {
         replymessage = {
@@ -122,6 +124,7 @@ class Message {
         original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
         container.prepend(original)
       }
+    //delete button, display sent messages
       if (this.properties.messagetype === 'sent') {
         const deleteButton = document.createElement('button')
         deleteButton.classList.add('msg-button')
@@ -137,12 +140,19 @@ class Message {
           this.delete()
           socket.emit('delete', this.properties)
         })
+    //push sent messages right
+        container.style['left'] = '500px'
+        /*let width = getComputedStyle(container, null).getPropertyValue('width')
+        let i = 0
+        console.log(window.getComputedStyle(container, null).getPropertyValue("width"))
+        while(width === container.style['width'] && i < 1000){
+          i++
+          container.style['left'] = `${i}px`
+        }*/
       }
     }
+  //display received messages
     if (this.properties.messagetype === 'received') {
-      /*socket.emit('user',
-        {type:'getinfo',identifier:user.identifier},username => {this.properties.user}
-      )*/
       const senderName = document.createElement('i')
       senderName.style['left'] = '60px'
       senderName.textContent = `${this.properties.sender}`
@@ -205,8 +215,8 @@ class Message {
   }
 
   delete() {
-    if (this.container.parentNode)
-      this.container.parentNode.removeChild(this.bigContainer)
+    if (this.bigContainer.parentNode)
+      this.bigContainer.parentNode.removeChild(this.bigContainer)
     messages.splice(messages.indexOf(this), 1)
   }
 
