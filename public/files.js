@@ -1,4 +1,4 @@
-const sendFiles = []
+let sendFiles = []
 
 addEventListener('dragover', event => {
   event.preventDefault()

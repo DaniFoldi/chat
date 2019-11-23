@@ -125,6 +125,16 @@ class Message {
       }
     }
     this.container = container
+    if (this.properties.files){
+      for (let i = 0; i < this.properties.files.length; i++){
+        const image = document.createElement('img')
+        console.log(container, image)
+        container.appendChild(image)
+        (async function() {
+          image.src ="data:image/png;base64,"+ await this.properties.files[i].toString ("base64").text()
+        }())
+      }
+    }
     container.addEventListener('click', () => {
       if (!container.classList.contains('shake-slow'))
         return

@@ -3,6 +3,10 @@ function sendMessage() {
   const message = Message.sent({
     message: data
   })
+  if (sendFiles.length > 0){
+    message.properties.files = sendFiles
+
+  }
   if (Object.keys(replymessage).length > 0) {
     message.properties.replyuser = replymessage.user
     message.properties.replymessage = replymessage.message
@@ -20,6 +24,7 @@ function sendMessage() {
   document.getElementById('messages').appendChild(message.render())
   message.postrender()
   socket.emit('message', message.properties)
+  sendFiles = []
   document.querySelectorAll('.message-replying').forEach((el, i) => {
     el.classList.remove('message-replying')
   })
