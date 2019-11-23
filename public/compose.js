@@ -77,6 +77,14 @@ function parseCommands(message) {
       message.properties.message = message.properties.message.join(' ')
       return
     }
+    if (message.properties.message.split(' ')[0] === '!rage') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.shake = true
+      message.properties.message.push('(╯°□°)╯︵ ┻━┻')
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
     if (message.properties.message.split(' ')[0] === '!ping') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
