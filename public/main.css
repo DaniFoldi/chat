@@ -179,8 +179,8 @@ html {
   background: #DDDDDD;
   margin: 4px;
   border: none;
-  padding: 8px;
   height: 43px;
+  text-align: center;
 }
 
 .message:hover > .msg-button {

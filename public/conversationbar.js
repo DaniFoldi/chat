@@ -1,13 +1,10 @@
-(async () => {
-  dbHandler = await require('./database')()
-})()
-/*(async () => {
-  sessionHandler = await require('./session')()
-})()*/
+let dbHandler;
+dbHandler = require('./database')()
+
 
 createNewConversation()
 
-for(let i = 1; i <= dbHandler.conversationsOfUsers(sessions[uuid()]); i++) {
+for(let i = 1; i <= 3/*dbHandler.conversationsOfUsers(sessions[uuid()])*/; i++) {
   createChatButtons(i)
 }
 
@@ -41,4 +38,6 @@ function createChatButtons(buttonN) {
   const buttonContainer = document.getElementById('sidebar')
   const chatButton = document.createElement('Button-' + buttonN)
   buttonContainer.appendChild(chatButton)
+  chatButton.classList.add('chat-button')
+  chatButton.textContent = 'Button-' + buttonN
 }
