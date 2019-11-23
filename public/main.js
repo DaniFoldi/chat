@@ -93,3 +93,9 @@ socket.on('delete', identifier => {
   if (typeof message !== 'undefined')
     message.delete()
 })
+
+
+
+socket.emit('conversation', {type: 'participants', identifer: currentConversationidentifier}, data => {
+  data === participants
+})

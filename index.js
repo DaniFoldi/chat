@@ -104,6 +104,14 @@ socket.on('connection', async socket => {
         })
     }
   })
+
+  socket.on('conversation', async (data, callback) => {
+    switch (data.type) {
+      case 'participants':
+      const participants = await dbHandler.getParticipants(data.identifier)
+      callback(participants)
+    }
+  })
 })
 
 server.listen(port, async () => {

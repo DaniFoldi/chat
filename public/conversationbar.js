@@ -1,5 +1,5 @@
-let dbHandler;
-dbHandler = require('./database')()
+//let dbHandler;
+//dbHandler = require('./database')()
 
 
 createNewConversation()
