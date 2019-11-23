@@ -22,7 +22,7 @@ function  createNewConversation(){
       event.preventDefault()
       let usernameList = document.getElementById('usernames').value.split(/[ ,]+/gi)
       let identifierList = []
-      for (var i = 0; i < identifierList.length; i++) {
+      for (var i = 0; i < usernameList.length; i++) {
         socket.emit('conversation',{type:'getIdentifier', usernames: usernameList }, data => {
           identifierList.push(data)
         })
