@@ -118,6 +118,8 @@ socket.on('connection', async socket => {
         dbHandler.newConversation(data.identifiers)
       case 'getIdentifier':
         callback(dbHandler.getIdentifier(data.usernames))
+      case 'getChats':
+        callback(dbHandler.conversationsOfUsers(data.identifiers))
     }
   })
 })

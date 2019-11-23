@@ -119,8 +119,3 @@ setInterval(() => {
   for (let message of messages)
     message.updateTime()
 }, 50)
-
-
-socket.emit('conversation', {type: 'participants', identifer: currentConversationidentifier}, data => {
-  data === participants
-})
