@@ -1,9 +1,11 @@
 
 createNewConversation()
 
-for(let i = 1; i <= 3/*dbHandler.conversationsOfUsers(sessions[uuid()])*/; i++) {
-  createChatButtons(i)
-}
+socket.emit('conversation',{type:'getChats', identifiers: identifierList }, data => {
+  for(let i = 1; i <= data.length; i++) {
+    createChatButtons(i)
+  }
+})
 
 function  createNewConversation(){
   const button = document.getElementById('createChat')
