@@ -1,6 +1,3 @@
-//let dbHandler;
-//dbHandler = require('./database')()
-
 
 createNewConversation()
 
@@ -22,14 +19,16 @@ function  createNewConversation(){
     document.querySelector('#createChatpopup-content form').addEventListener('submit', async event => {
       event.preventDefault()
       let usernameList = document.getElementById('usernames').value.split(/[ ,]+/gi)
-      let i = 0
       let identifierList = []
-      while (i < usernameList.length  ) {
-        identifierList.push(await dbHandler.getIdentifier(usernameList[i]))
-        i++
+      for (var i = 0; i < identifierList.length; i++) {
+        socket.emit('conversation',{type:'getIdentifier', usernames: usernameList }, data => {
+          identifierList.push(data)
+        })
       }
-      identifierList.push(sessions[uuid()])
-      dbHandler.newConversation(identifierList)
+      socket.emit('conversation',{type:'identiferOfCurrentUser', sessionid: getData().sessionid }, data => {
+        identifierList.push(data)
+      })
+      socket.emit('conversation',{type:'newConversation', identifiers: identifierList }, data => {})
     })
   })
 }

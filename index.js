@@ -114,6 +114,10 @@ socket.on('connection', async socket => {
     switch (data.type) {
       case 'identiferOfCurrentUser':
         callback(sessions[data.sessionid])
+      case 'newConversation':
+        dbHandler.newConversation(data.identifiers)
+      case 'getIdentifier':
+        callback(dbHandler.getIdentifier(data.usernames))
     }
   })
 })
