@@ -41,3 +41,4 @@ function createChatButtons(buttonN) {
   const buttonContainer = document.getElementById('sidebar')
   const chatButton = document.createElement('Button-' + buttonN)
   buttonContainer.appendChild(chatButton)
+}
