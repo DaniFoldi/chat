@@ -1,4 +1,4 @@
-function sendMessage() {
+async function sendMessage() {
   const data = document.getElementById('input').value.trim()
   const message = Message.sent({
     message: data
@@ -14,7 +14,7 @@ function sendMessage() {
       message.delete()
     }, message.properties.timing * 1000)
   }
-  parseCommands(message)
+  await parseCommands(message)
   messages.push(message)
   message.preprocess()
   document.getElementById('messages').appendChild(message.render())
@@ -36,7 +36,7 @@ document.getElementById('send').addEventListener('click', () => {
   sendMessage()
 })
 
-function parseCommands(message) {
+async function parseCommands(message) {
   if (message.properties.message[0] === "!" && message.properties.message[1] === "!") {
     message.properties.message = message.properties.message.substr(1)
     return
@@ -83,6 +83,19 @@ function parseCommands(message) {
       message.properties.message.shift()
       message.properties.meow = true
       message.properties.message = message.properties.message.join(' ')
+    }
+          if (message.properties.message.split(' ')[0] === '!location') {
+            message.properties.message = message.properties.message.split(' ')
+            message.properties.message.shift()
+            const location = async () => {
+              return new Promise(function(resolve, reject) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+              resolve({latitude:position.coords.latitude, longitude:position.coords.longitude})
+            })
+              });
+            }
+            message.properties.location = await location()
+            message.properties.message = message.properties.message.join(' ')
     }
   }
 }
