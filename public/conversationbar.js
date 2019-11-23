@@ -1,9 +1,13 @@
-let dbHandler ='./database'
-let session = './session'
+(async () => {
+  dbHandler = await require('./database')()
+})()
+/*(async () => {
+  sessionHandler = await require('./session')()
+})()*/
 
 createNewConversation()
 
-for(let i = 1; i <=dbHandler.conversationsOfUsers(sessions[session.getSessionid()]); i++) {
+for(let i = 1; i <= dbHandler.conversationsOfUsers(sessions[uuid()]); i++) {
   createChatButtons(i)
 }
 
@@ -24,10 +28,10 @@ function  createNewConversation(){
       let i = 0
       let identifierList = []
       while (i < usernameList.length  ) {
-        identifierList.push(database.getIdentifier(usernameList[i]))
+        identifierList.push(await dbHandler.getIdentifier(usernameList[i]))
         i++
       }
-      identifierList.push(sessions[session.getSessionid()])
+      identifierList.push(sessions[uuid()])
       dbHandler.newConversation(identifierList)
     })
   })
