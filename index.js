@@ -115,11 +115,13 @@ socket.on('connection', async socket => {
       case 'identiferOfCurrentUser':
         callback(sessions[data.sessionid])
       case 'newConversation':
-        dbHandler.newConversation(data.identifiers)
+        await dbHandler.newConversation(data.identifiers)
       case 'getIdentifier':
-        callback(dbHandler.getIdentifier(data.usernames))
+        callback(await dbHandler.getIdentifier(data.usernames))
       case 'getChats':
-        callback(dbHandler.conversationsOfUsers(data.identifiers))
+        callback(await dbHandler.conversationsOfUsers(data.identifiers))
+      case 'loadMessages':
+        await dbHandler.newMessage(data.chat, data.message)
     }
   })
 })

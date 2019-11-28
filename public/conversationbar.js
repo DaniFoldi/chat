@@ -1,3 +1,5 @@
+let chatList = []
+let identifierList = []
 
 createNewConversation()
 
@@ -5,7 +7,9 @@ socket.emit('conversation',{type:'getChats', identifiers: identifierList }, data
   for(let i = 1; i <= data.length; i++) {
     createChatButtons(i)
   }
+  chatList = data
 })
+
 
 function  createNewConversation(){
   const button = document.getElementById('createChat')
@@ -21,7 +25,6 @@ function  createNewConversation(){
     document.querySelector('#createChatpopup-content form').addEventListener('submit', async event => {
       event.preventDefault()
       let usernameList = document.getElementById('usernames').value.split(/[ ,]+/gi)
-      let identifierList = []
       for (var i = 0; i < usernameList.length; i++) {
         socket.emit('conversation',{type:'getIdentifier', usernames: usernameList }, data => {
           identifierList.push(data)
@@ -31,6 +34,7 @@ function  createNewConversation(){
         identifierList.push(data)
       })
       socket.emit('conversation',{type:'newConversation', identifiers: identifierList }, data => {})
+      hidechatpopup()
     })
   })
 }
@@ -40,5 +44,14 @@ function createChatButtons(buttonN) {
   const chatButton = document.createElement('Button-' + buttonN)
   buttonContainer.appendChild(chatButton)
   chatButton.classList.add('chat-button')
-  chatButton.textContent = 'Button-' + buttonN
+  chatButton.textContent = 'Chat-' + buttonN
+  chatButton.addEventListener('click', () => {
+    socket.emit('conversation',{type:'loadMessages', chat: 0, message: 'hey'}, data => {
+    })
+  })
+}
+
+function hidechatpopup() {
+  document.getElementById('createChatpopup').classList.remove('shown')
+  document.getElementById('createChatpopup-content').innerHTML = ''
 }
