@@ -103,7 +103,7 @@ module.exports = async () => {
         },
         getinfo: identifier => {
           return new Promise((reject, resolve) => {
-            db.collection('users').findOne({
+            db.collection('users').find({
               identifier: identifier
             }, (err, res) => {
               if (err)
@@ -113,7 +113,29 @@ module.exports = async () => {
               })
             })
           })
-        }
+        },
+        getChat: (identifier) => {
+          return new Promise((reject, resolve) => {
+            db.collection('conversations').find({
+              participants: identifier
+            }).sort([[{messages:{timestamp: -1}}]])
+          }, (err, res) => {
+            if (err)
+              return console.log(err) && reject()
+            resolve(res)
+          })
+        },
+        getMessages: (conversationIdentifier) => {
+          return new Promise((reject, resolve) => {
+            db.collection('conversations').find({
+              identifier: conversationIdentifer
+            })
+          }, (err, res) => {
+            if (err)
+            return console.log(err) && reject()
+            resolve(res)
+          })
+        },
         // deleteMessage: (conversationIdentifer, messageIdentifier) => {
         //   return new Promise((reject, resolve) => {
         //     db.collection('conversations').({
