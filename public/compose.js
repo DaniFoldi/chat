@@ -47,42 +47,106 @@ function parseCommands(message) {
       message.properties.message.shift()
       message.properties.message.push('¯\\\\_(ツ)\\_/¯')
       message.properties.message = message.properties.message.join(' ')
+      return
     }
     if (message.properties.message.split(' ')[0] === '!lenny') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
       message.properties.message.push('( ͡° ͜ʖ ͡°)')
       message.properties.message = message.properties.message.join(' ')
+      return
     }
     if (message.properties.message.split(' ')[0] === '!uwu') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
       message.properties.message.push('(ᵘﻌᵘ)')
       message.properties.message = message.properties.message.join(' ')
+      return
     }
     if (message.properties.message.split(' ')[0] === '!tableflip') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
       message.properties.message.push('(╯°□°)╯︵ ┻━┻')
       message.properties.message = message.properties.message.join(' ')
+      return
     }
     if (message.properties.message.split(' ')[0] === '!unflip') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
       message.properties.message.push('┬─┬ ノ( ゜-゜ノ)')
       message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!rage') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.shake = true
+      message.properties.message.push('(╯°□°)╯︵ ┻━┻')
+      message.properties.message = message.properties.message.join(' ')
+      return
     }
     if (message.properties.message.split(' ')[0] === '!ping') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
       message.properties.ping = true
       message.properties.message = message.properties.message.join(' ')
+      return
     }
     if (message.properties.message.split(' ')[0] === '!meow') {
       message.properties.message = message.properties.message.split(' ')
       message.properties.message.shift()
       message.properties.meow = true
       message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!badumtss') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.badumtss = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!shake') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.shake = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!lmgtfy') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.lmgtfy = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!zalgo') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.zalgo = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!glitch') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.glitch = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!flip') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.flip = true
+      message.properties.message = message.properties.message.join(' ')
+      return
+    }
+    if (message.properties.message.split(' ')[0] === '!tts') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      message.properties.tts = true
+      message.properties.message = message.properties.message.join(' ')
+      return
     }
   }
 }

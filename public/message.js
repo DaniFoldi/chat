@@ -3,13 +3,34 @@ class Message {
     this.properties = properties
     if (typeof this.properties.identifier === 'undefined')
       this.properties.identifier = uuid()
+    if (typeof this.properties.timestamp === 'undefined')
+      this.properties.timestamp = new Date()
+    if (typeof this.properties.sender === 'undefined')
+      this.properties.sender = getData().userid
   }
+
   preprocess() {
+    for (let replacement in autocomplete) {
+      this.properties.message = this.properties.message.replace(new RegExp(replacement, 'gi'), autocomplete[replacement])
+    }
     this.properties.displayed = this.properties.message
     this.properties.displayed = this.properties.displayed.replace(/\n/g, '\n\n')
+    if (this.properties.lmgtfy) {
+      this.properties.displayed = `<iframe class='lmgtfy' src='https://lmgtfy.com/?q=${this.properties.message}'></iframe>`
+      return
+    }
+    if (this.properties.zalgo) {
+      this.properties.displayed = zalgo(this.properties.displayed)
+      return
+    }
+    if (this.properties.glitch) {
+      this.properties.displayed = glitch(this.properties.displayed)
+      return
+    }
     if (!emoji_regex.test(this.properties.displayed)) // TODO: fix to work with all emojis
       this.properties.displayed = md.render(this.properties.displayed).trim()
   }
+
   render() {
     const container = document.createElement('div')
     container.classList.add('message')
@@ -17,13 +38,65 @@ class Message {
     if (emoji_regex.test(this.properties.displayed)) { // TODO: fix to work with all emojis
       container.classList.add('message-emoji')
     }
-    container.innerHTML = this.properties.displayed
+    if (this.properties.lmgtfy) {
+      container.classList.add('message-large')
+    }
+    const messageContainer = document.createElement('div')
+    container.appendChild(messageContainer)
+    messageContainer.classList.add('message-content')
+    messageContainer.innerHTML = this.properties.displayed
+    const timestamp = document.createElement('p')
+    timestamp.classList.add('timestamp')
+    container.appendChild(timestamp)
+    if (this.properties.flip) {
+      container.getElementsByClassName('message-content')[0].classList.add('message-flip')
+    }
     if (typeof this.properties.replyuser !== 'undefined' && typeof this.properties.replymessage !== 'undefined') {
       const original = document.createElement('p')
       original.textContent = `Replying to ${this.properties.replyuser}'s message: ${this.properties.replymessage}:`
       container.prepend(original, container.firstChild)
     }
+    if (this.properties.shake) {
+      container.classList.add('shake')
+      container.classList.add('shake-constant')
+      container.classList.add('shake-constant--hover')
+      container.classList.add('shake-slow')
+    }
     if (this.properties.messagetype !== 'special') {
+      const reactButton = document.createElement('button')
+      container.appendChild(reactButton)
+      const reactCount = document.createElement('span')
+      container.appendChild(reactCount)
+      reactCount.textContent = '0'
+      if (reactCount.textContent === '0') {
+        reactCount.classList.add('hidden')
+      } else {
+        reactCount.classList.remove('hidden')
+      }
+      reactButton.classList.add('msg-button')
+      reactButton.classList.add('reaction')
+      reactButton.addEventListener('click', () => {
+        if (!reactButton.classList.contains('filled')) {
+          socket.emit('messageevent', {
+            type: 'react',
+            identifier: this.properties.identifier
+          })
+          reactButton.classList.add('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) + 1
+        } else {
+          socket.emit('messageevent', {
+            type: 'unreact',
+            identifier: this.properties.identifier
+          })
+          reactButton.classList.remove('filled')
+          reactCount.textContent = parseInt(reactCount.textContent) - 1
+        }
+        if (reactCount.textContent === '0') {
+          reactCount.classList.add('hidden')
+        } else {
+          reactCount.classList.remove('hidden')
+        }
+      })
       const button = document.createElement('button')
       container.appendChild(button)
       button.textContent = 'Reply'
@@ -52,15 +125,30 @@ class Message {
       }
     }
     this.container = container
+    container.addEventListener('click', () => {
+      if (!container.classList.contains('shake-slow'))
+        return
+      container.classList.remove('shake-slow')
+      container.classList.add('shake-little')
+    })
+    this.updateTime()
     return container
   }
+
   async postrender() {
+    if (this.properties.tts) {
+      const tts = new SpeechSynthesisUtterance(this.properties.message)
+      speechSynthesis.speak(tts)
+    }
     if (this.properties.messagetype === 'received') {
       if (this.properties.ping) {
         playSound(soundEffects.bell)
       }
       if (this.properties.meow) {
         playSound(soundEffects.meow)
+      }
+      if (this.properties.badumtss) {
+        playSound(soundEffects.badumtss)
       }
     }
     const maxmargin = this.container.classList.contains('message-emoji') ? 92 : 96 // TODO: imrpove this part
@@ -98,12 +186,20 @@ class Message {
     }
   }
 
+  updateTime() {
+    const diff = timediff(this.properties.timestamp, new Date(), {
+      returnZeros: false
+    })
+    if (typeof diff.seconds !== 'undefined' && this.container.getElementsByClassName('timestamp')[0].textContent !== pluralize(Object.keys(diff)[0], diff[Object.keys(diff)[0]], true) + ' ago') {
+      this.container.getElementsByClassName('timestamp')[0].textContent = pluralize(Object.keys(diff)[0], diff[Object.keys(diff)[0]], true) + ' ago'
+    }
+  }
+
   delete() {
     if (this.container.parentNode)
       this.container.parentNode.removeChild(this.container)
     messages.splice(messages.indexOf(this), 1)
   }
-
 
   static received(properties) {
     properties.messagetype = 'received'

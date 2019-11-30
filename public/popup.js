@@ -16,7 +16,10 @@ function showpopup(popup) {
           username: document.getElementById('username').value,
           password: document.getElementById('password').value
         }, data => {
-          setSessionid(data.sessionid)
+          setData({
+            userid: data.userid,
+            sessionid: data.sessionid
+          })
           hidepopup()
         })
       })
@@ -43,7 +46,10 @@ function showpopup(popup) {
           email: document.getElementById('email').value,
           password: document.getElementById('password').value
         }, data => {
-          setSessionid(data.sessionid)
+          setData({
+            userid: data.userid,
+            sessionid: data.sessionid
+          })
           hidepopup()
         })
       })
@@ -53,4 +59,5 @@ function showpopup(popup) {
 
 function hidepopup() {
   document.getElementById('popup').classList.remove('shown')
+  document.getElementById('popup-content').innerHTML = ''
 }
