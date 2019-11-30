@@ -36,7 +36,7 @@ function  createNewConversation(){
 
 function createChatButtons(buttonN) {
   const buttonContainer = document.getElementById('sidebar')
-  const chatButton = document.createElement('Button-' + buttonN)
+  const chatButton = document.createElement('button')
   buttonContainer.appendChild(chatButton)
   chatButton.classList.add('chat-button')
   chatButton.textContent = 'Button-' + buttonN
