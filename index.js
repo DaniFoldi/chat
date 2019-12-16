@@ -107,5 +107,6 @@ socket.on('connection', async socket => {
 })
 
 server.listen(port, async () => {
+  await dbHandler
   console.log(`Listening on port ${port}`)
 })
