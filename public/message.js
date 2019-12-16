@@ -52,19 +52,17 @@ class Message {
       }
     }
     this.container = container
-      console.log(this.properties)
-    if (this.properties.location){
-      console.log(this.properties.location)
+    if (this.properties.location) {
       const mapContainer = document.createElement('div')
       this.container.appendChild(mapContainer)
-    var map = L.map(mapContainer).setView([this.properties.location.latitude, this.properties.location.longitude], 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-  L.marker([this.properties.location.latitude, this.properties.location.longitude]).addTo(map)
-    .bindPopup('My location.')
-    .openPopup();
-  }
+      var map = L.map(mapContainer).setView([this.properties.location.latitude, this.properties.location.longitude], 13)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map)
+      L.marker([this.properties.location.latitude, this.properties.location.longitude]).addTo(map)
+        .bindPopup('My location.')
+        .openPopup()
+    }
     return container
   }
 

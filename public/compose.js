@@ -32,8 +32,8 @@ async function sendMessage() {
   document.getElementById('input').classList.add('line-1')
 }
 
-document.getElementById('send').addEventListener('click', () => {
-  sendMessage()
+document.getElementById('send').addEventListener('click', async () => {
+  await sendMessage()
 })
 
 async function parseCommands(message) {
@@ -84,26 +84,29 @@ async function parseCommands(message) {
       message.properties.meow = true
       message.properties.message = message.properties.message.join(' ')
     }
-          if (message.properties.message.split(' ')[0] === '!location') {
-            message.properties.message = message.properties.message.split(' ')
-            message.properties.message.shift()
-            const location = async () => {
-              return new Promise(function(resolve, reject) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-              resolve({latitude:position.coords.latitude, longitude:position.coords.longitude})
+    if (message.properties.message.split(' ')[0] === '!location') {
+      message.properties.message = message.properties.message.split(' ')
+      message.properties.message.shift()
+      const location = async () => {
+        return new Promise(function(resolve, reject) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
             })
-              });
-            }
-            message.properties.location = await location()
-            message.properties.message = message.properties.message.join(' ')
+          })
+        });
+      }
+      message.properties.location = await location()
+      message.properties.message = message.properties.message.join(' ')
     }
   }
 }
 
-document.getElementById('input').addEventListener('keydown', event => {
+document.getElementById('input').addEventListener('keydown', async event => {
   if (!event.shiftKey && event.key === 'Enter' && document.getElementById('input').value.trim().length > 0) {
     event.preventDefault()
-    sendMessage()
+    await sendMessage()
   }
 })
 
