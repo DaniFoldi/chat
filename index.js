@@ -2,7 +2,7 @@ const express = require('express')
 const io = require('socket.io')
 const http = require('http')
 const bodyParser = require('body-parser')
-const articleParser = require('article-parser')
+// const articleParser = require('article-parser')
 const uuid = require('uuid/v4')
 
 let dbHandler;
@@ -25,11 +25,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('public'))
 
-app.get('/api/tools/article-parser', (req, res, next) => {
-  articleParser.extract(req.query.url).then(article => {
-    res.send(article)
-  })
-})
+// app.get('/api/tools/article-parser', (req, res, next) => {
+//   articleParser.extract(req.query.url).then(article => {
+//     res.send(article)
+//   })
+// })
 
 socket.on('connection', async socket => {
   switch (socket.conn.server.clientsCount - 1) {
